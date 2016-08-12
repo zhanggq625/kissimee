@@ -15,7 +15,7 @@
         <form-list name="ProductsForm" list="productList" skip-form="true">
 
             <field name="productId">
-                <header-field title="ID" show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
+                <header-field title="产品编号" show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><link url="editProduct" text="${productId}" link-type="anchor"/></default-field>
             </field>
 
