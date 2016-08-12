@@ -2,7 +2,7 @@
 
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
-        include-child-content="true" menu-image="glyphicon glyphicon-flash" menu-image-type="icon">
+        include-child-content="true" menu-image="glyphicon glyphicon-flash" menu-image-type="icon" default-menu-title="岂止美ERP">
 
     <subscreens default-item="Dashboard"/>
 
