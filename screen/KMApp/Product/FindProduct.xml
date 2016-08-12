@@ -53,10 +53,19 @@
                 </default-field>
             </field>
 
-            <field name="geoName">
-                <header-field title="产地"><text-find size="10" hide-options="true"/></header-field>
+            <field name="geoId">
+                <header-field title="产地">
+                    <drop-down>
+                        <option key="" text="全部"/>
+                        <entity-options key="${geoId}" text="${geoName}">
+                            <entity-find entity-name="moqui.basic.Geo">
+                                <econdition field-name="geoId" operator="in" value="CHN,JPN,DEU"/>
+                            </entity-find>
+                        </entity-options>
+                    </drop-down>
+                </header-field>
                 <default-field>
-                    <display/>
+                    <display-entity entity-name="moqui.basic.Geo"/>
                 </default-field>
             </field>
 

@@ -20,5 +20,6 @@
         <alias-all entity-alias="PI"/>
 
         <alias name="geoName" entity-alias="GEO"/>
+        <alias name="geoId" entity-alias="GEO"/>
     </view-entity>
 </entities>

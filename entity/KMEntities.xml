@@ -6,4 +6,8 @@
         <field name="primaryProductCategoryId" type="id"/>
     </extend-entity>
 
+    <extend-entity entity-name="Geo" package="moqui.basic">
+        <field name="geoName" type="text-medium" enable-localization="true"/>
+    </extend-entity>
+
 </entities>

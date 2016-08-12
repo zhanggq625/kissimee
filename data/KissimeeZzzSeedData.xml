@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity-facade-xml type="seed">
+    <moqui.basic.LocalizedEntityField entityName="moqui.basic.Geo" fieldName="geoName" pkValue="CHN" locale="zh_CN" localized="中国"/>
+    <moqui.basic.LocalizedEntityField entityName="moqui.basic.Geo" fieldName="geoName" pkValue="DEU" locale="zh_CN" localized="德国"/>
+    <moqui.basic.LocalizedEntityField entityName="moqui.basic.Geo" fieldName="geoName" pkValue="JPN" locale="zh_CN" localized="日本"/>
 
     <moqui.screen.SubscreensItem screenLocation="component://webroot/screen/webroot/apps.xml"
                              subscreenName="km" menuTitle="Kissimee Commerce" menuIndex="1" menuInclude="Y"
