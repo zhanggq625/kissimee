@@ -3,7 +3,8 @@
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
         default-menu-title="销售管理" default-menu-index="30">
 
+    <subscreens default-item="FindSalesOrder"/>
     <widgets>
-        <label text="sales order"/>
+        <subscreens-panel id="SalesOrderPanel" type="tab"/>
     </widgets>
 </screen>
