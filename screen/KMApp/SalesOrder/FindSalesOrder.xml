@@ -31,21 +31,22 @@
 
             <field name="entryDate">
                 <header-field show-order-by="true"><display/></header-field>
-                <default-field><display/></default-field>
+                <default-field><display format="yyyy年MM月dd日"/></default-field>
             </field>
 
             <field name="placedDate">
                 <header-field show-order-by="true"><display/></header-field>
-                <default-field><display/></default-field>
+                <default-field><display format="yyyy年MM月dd日"/></default-field>
             </field>
 
             <field name="statusId">
                 <header-field title="Status" show-order-by="true">
                     <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#statusDropDown">
                         <set field="statusTypeId" value="OrderHeader"/>
-                        <set field="allowEmpty" value="true"/></widget-template-include>
+                        <set field="allowEmpty" value="true"/>
+                    </widget-template-include>
                 </header-field>
-                <default-field><display text="${statusDescription}"/></default-field>
+                <default-field><display-entity entity-name="moqui.basic.StatusItem" text="${description}"/></default-field>
             </field>
 
             <field name="customerPartyId">
@@ -57,6 +58,11 @@
             <field name="partTotal">
                 <header-field show-order-by="true" title="Total"/>
                 <default-field><display currency-unit-field="currencyUomId"/></default-field>
+            </field>
+
+            <field name="submitButton">
+                <header-field title="Find"><submit/></header-field>
+                <default-field><link url="orderDetail" text="View"/></default-field>
             </field>
         </form-list>
 
