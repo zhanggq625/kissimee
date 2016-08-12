@@ -1,0 +1,9 @@
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
+        default-menu-title="产品管理" default-menu-index="20">
+    <subscreens default-item="FindProduct"/>
+    <widgets>
+        <subscreens-panel id="ProductPanel" type="tab"/>
+    </widgets>
+</screen>

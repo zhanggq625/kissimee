@@ -1,0 +1,83 @@
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd" default-menu-include="false" default-menu-title="产品查询">
+
+
+    <transition name="editProduct"><default-response url="../EditProduct"/></transition>
+
+    <actions>
+        <!--<set field="pageSize" from="200"/>-->
+        <entity-find entity-name="cn.com.kissimee.ProductSearchView" list="productList">
+            <search-form-inputs default-order-by="productCategoryId"/></entity-find>
+    </actions>
+
+    <widgets>
+        <form-list name="ProductsForm" list="productList" skip-form="true">
+
+            <field name="productId">
+                <header-field title="ID" show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
+                <default-field><link url="editProduct" text="${productId}" link-type="anchor"/></default-field>
+            </field>
+
+            <field name="primaryProductCategoryId">
+                <header-field title="类别" show-order-by="case-insensitive">
+                    <drop-down>
+                        <option key="" text="全部"/>
+                        <entity-options key="${productCategoryId}" text="${categoryName}">
+                            <entity-find entity-name="mantle.product.category.ProductCategory">
+                                <econdition field-name="productCategoryId" operator="like" value="KM%"/>
+                                <order-by field-name="categoryName"/>
+                            </entity-find>
+                        </entity-options>
+                    </drop-down>
+                </header-field>
+                <default-field><display text="${categoryName?:''}"/></default-field>
+            </field>
+
+            <field name="productName">
+                <header-field title="Name" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+
+
+            <field name="idValue">
+                <header-field title="条码" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+
+
+            <field name="guige">
+                <header-field title="规格"/>
+                <default-field>
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="geoName">
+                <header-field title="产地"><text-find size="10" hide-options="true"/></header-field>
+                <default-field>
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="uom">
+                <header-field title="单位"/>
+                <default-field>
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="dimension">
+                <header-field title="包装"/>
+                <default-field>
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="submitButton">
+                <header-field title="Find"><submit/></header-field>
+                <default-field><display text=" "/></default-field>
+            </field>
+        </form-list>
+    </widgets>
+</screen>

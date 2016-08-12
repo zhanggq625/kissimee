@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-facade-xml type="seed">
+
+    <moqui.screen.SubscreensItem screenLocation="component://webroot/screen/webroot/apps.xml"
+                             subscreenName="km" menuTitle="Kissimee Commerce" menuIndex="1" menuInclude="Y"
+                             subscreenLocation="component://kissimee/screen/KMApp.xml"/>
+
+    <moqui.security.UserGroup userGroupId="KMAPP_ADMIN" description="KM App Administrators"/>
+
+    <!-- KM App root screen -->
+    <moqui.security.ArtifactGroup artifactGroupId="KM_APP" description="Kissimee app"/>
+
+    <moqui.security.ArtifactGroupMember artifactGroupId="KM_APP" artifactName="component://kissimee/screen/KMApp.xml"
+                                        artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+
+    <moqui.security.ArtifactAuthz artifactAuthzId="KM_APP_ADMIN" userGroupId="KMAPP_ADMIN" artifactGroupId="KM_APP"
+                                  authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
+
+    <moqui.security.UserGroupMember userGroupId="KMAPP_ADMIN" userId="EX_JOHN_DOE" fromDate="1265184000000"/>
+
+</entity-facade-xml>

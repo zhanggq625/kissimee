@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-facade-xml type="demo">
+
+    <mantle.party.Party partyId="ORG_KISSIMEE" partyTypeEnumId="PtyOrganization">
+        <mantle.party.Organization organizationName="岂止美公司"/>
+        <mantle.party.PartyRole roleTypeId="OrgInternal"/>
+    </mantle.party.Party>
+
+    <mantle.facility.Facility facilityId="KM_ZHUOZHOU_WH" facilityTypeEnumId="FcTpWarehouse"
+                              ownerPartyId="ORG_KISSIMEE" facilityName="涿州仓库"/>
+
+    <mantle.facility.Facility facilityId="KM_YIZHUANG_WH" facilityTypeEnumId="FcTpWarehouse"
+                              ownerPartyId="ORG_KISSIMEE" facilityName="亦庄仓库"/>
+
+    <mantle.product.store.ProductStore productStoreId="KM_RETAIL_STORE" storeName="岂止美线下零售店"
+                                       organizationPartyId="ORG_KISSIMEE" inventoryFacilityId="KM_ZHUOZHOU_WH"
+                                       reservationOrderEnumId="AsResOrdFifoRec" requirementMethodEnumId=""
+                                       defaultLocale="zh_CN" defaultCurrencyUomId="CNY" taxGatewayConfigId="LOCAL"/>
+
+    <mantle.product.category.ProductCategory productCategoryId="KM_DENTAL_FLOSS" categoryName="牙线" productCategoryTypeEnumId="PctCatalog"  description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_INTER_DENTAL_BRUSH" categoryName="牙缝刷" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_TOOTHBRUSH" categoryName="牙刷" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_LONG_TOOTHBRUSH" categoryName="备长炭牙刷" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_TOOTH_PICK" categoryName="牙签/牙线签" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_MOUTH_WASH" categoryName="漱口水" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_TOOTHPASTE" categoryName="牙膏" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_TOOTH_MOUSE" categoryName="护牙素" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_ELECTRONIC_ACCESSORIES" categoryName="小电器" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_CLEANING_PLATE" categoryName="清洁片" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_TONGUE_SCRAPER" categoryName="刮舌板" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_TOOTH_BOX" categoryName="牙盒" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_OTHERS" categoryName="其他" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_TOOTH_SMALL_SUIT" categoryName="护牙素小套装" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_TOOTH_BIG_SUIT" categoryName="护牙素大套装" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_GIFT_BOXES_SERIES" categoryName="精品礼盒系列" productCategoryTypeEnumId="PctCatalog" description=""/>
+    <mantle.product.category.ProductCategory productCategoryId="KM_NEW_ARRIVAL" categoryName="进口产品（新品）" productCategoryTypeEnumId="PctCatalog" description=""/>
+
+
+    <mantle.product.Product productId="KM054" productName="50m加氟牙线" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_DENTAL_FLOSS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description="">
+        <mantle.product.category.ProductCategoryMember productCategoryId="KM_DENTAL_FLOSS" fromDate="1265184000000"/>
+
+        <!-- list price -->
+        <mantle.product.ProductPrice productPriceId="KM054_L" productStoreId="KM_RETAIL_STORE"
+                                     pricePurposeEnumId="PppPurchase" priceTypeEnumId="PptList"  fromDate="1265184000000"
+                                     minQuantity="1" price="11.00" priceUomId="CNY"/>
+
+        <!-- Supplier prices -->
+        <mantle.product.ProductPrice productPriceId="KM054_VENDOR1" vendorPartyId="ZiddlemanInc"
+                                     pricePurposeEnumId="PppPurchase" priceTypeEnumId="PptCurrent"
+                                     fromDate="1265184000000" minQuantity="1" price="9.00" priceUomId="CNY"/>
+        <!-- Supplier prices -->
+        <mantle.product.ProductPrice productPriceId="KM054_CUSTOMER1" customerPartyId="CustJqp"
+                                     pricePurposeEnumId="PppPurchase" priceTypeEnumId="PptCurrent"
+                                     fromDate="1265184000000" minQuantity="1" price="10.00" priceUomId="CNY"/>
+        <mantle.product.ProductIdentification productIdTypeEnumId="PidtEan" idValue="6920955900054"/>
+
+        <mantle.product.ProductDimension dimensionTypeId="Width" valueUomId="LEN_cm" value="1"/>
+        <mantle.product.ProductDimension dimensionTypeId="Depth" valueUomId="LEN_cm" value="6"/>
+        <mantle.product.ProductDimension dimensionTypeId="Height" valueUomId="LEN_cm" value="18"/>
+
+        <mantle.product.asset.Asset assetId="KM054_L_ASSET" assetTypeEnumId="AstTpInventory" classEnumId="AsClsInventoryFin"
+                                    statusId="AstAvailable" facilityId="KM_ZHUOZHOU_WH" ownerPartyId="ORG_KISSIMEE"
+                                    hasQuantity="Y" quantityOnHandTotal="0" availableToPromiseTotal="0"
+                                    acquireCost="7.50" acquireCostUomId="CNY" receivedDate="1265184000000">
+            <mantle.product.asset.AssetDetail assetDetailId="KM054_L_ASSET" effectiveDate="1265184000000"
+                                              quantityOnHandDiff="100" availableToPromiseDiff="100"/>
+        </mantle.product.asset.Asset>
+    </mantle.product.Product>
+
+    <mantle.product.Product productId="KM221" productName="50m水蓬松牙线" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_DENTAL_FLOSS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description="">
+        <!--<mantle.product.category.ProductCategoryMember productCategoryId="KM_DENTAL_FLOSS" fromDate="1265184000000"/>-->
+        <mantle.product.ProductIdentification productIdTypeEnumId="PidtEan" idValue="6920955900221"/>
+
+        <!-- list price -->
+        <mantle.product.ProductPrice productPriceId="KM054_L" productStoreId="KM_RETAIL_STORE"
+                                     pricePurposeEnumId="PppPurchase" priceTypeEnumId="PptList"  fromDate="1265184000000"
+                                     minQuantity="1" price="15.00" priceUomId="CNY"/>
+    </mantle.product.Product>
+    <mantle.product.Product productId="KM0219" productName="25m水蓬松牙线" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_DENTAL_FLOSS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description="">
+        <!--<mantle.product.category.ProductCategoryMember productCategoryId="KM_DENTAL_FLOSS" fromDate="1265184000000"/>-->
+        <mantle.product.ProductIdentification productIdTypeEnumId="PidtEan" idValue="6921031600219"/>
+
+        <!-- list price -->
+        <mantle.product.ProductPrice productPriceId="KM054_L" productStoreId="KM_RETAIL_STORE"
+                                     pricePurposeEnumId="PppPurchase" priceTypeEnumId="PptList"  fromDate="1265184000000"
+                                     minQuantity="1" price="8.00" priceUomId="CNY"/>
+    </mantle.product.Product>
+    <mantle.product.Product productId="KM207" productName="25m加氟牙线" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_DENTAL_FLOSS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description="">
+        <!--<mantle.product.category.ProductCategoryMember productCategoryId="KM_DENTAL_FLOSS" fromDate="1265184000000"/>-->
+        <mantle.product.ProductIdentification productIdTypeEnumId="PidtEan" idValue="6920955900252"/>
+
+        <!-- list price -->
+        <mantle.product.ProductPrice productPriceId="KM054_L" productStoreId="KM_RETAIL_STORE"
+                                     pricePurposeEnumId="PppPurchase" priceTypeEnumId="PptList"  fromDate="1265184000000"
+                                     minQuantity="1" price="6.00" priceUomId="CNY"/>
+    </mantle.product.Product>
+    <mantle.product.Product productId="KM238" productName="牙线架" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_DENTAL_FLOSS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description="">
+        <!--<mantle.product.category.ProductCategoryMember productCategoryId="KM_DENTAL_FLOSS" fromDate="1265184000000"/>-->
+        <mantle.product.ProductIdentification productIdTypeEnumId="PidtEan" idValue="6920955900238"/>
+        <!-- list price -->
+        <mantle.product.ProductPrice productPriceId="KM054_L" productStoreId="KM_RETAIL_STORE"
+                                     pricePurposeEnumId="PppPurchase" priceTypeEnumId="PptList"  fromDate="1265184000000"
+                                     minQuantity="1" price="11.00" priceUomId="CNY"/>
+    </mantle.product.Product>
+
+    <mantle.product.Product productId="KM252" productName="牙线架轴" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_DENTAL_FLOSS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description="">
+        <!--<mantle.product.category.ProductCategoryMember productCategoryId="KM_DENTAL_FLOSS" fromDate="1265184000000"/>-->
+        <mantle.product.ProductIdentification productIdTypeEnumId="PidtEan" idValue="6920955900252"/>
+
+        <!-- list price -->
+        <mantle.product.ProductPrice productPriceId="KM054_L" productStoreId="KM_RETAIL_STORE"
+                                     pricePurposeEnumId="PppPurchase" priceTypeEnumId="PptList"  fromDate="1265184000000"
+                                     minQuantity="1" price="15.00" priceUomId="CNY"/>
+    </mantle.product.Product>
+
+    <!--牙缝刷-->
+    <mantle.product.Product productId="KM153" productName="5头牙缝刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_INTER_DENTAL_BRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM160" productName="8只装刷头" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_INTER_DENTAL_BRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM320" productName="10枚便携牙缝刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_INTER_DENTAL_BRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM337" productName="L字型便携牙缝刷(10枚)" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_INTER_DENTAL_BRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0509" productName="2枚牙缝刷（360°自由角度）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_INTER_DENTAL_BRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM481" productName="8枚牙缝刷（360°自由角度）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_INTER_DENTAL_BRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM498" productName="16枚牙缝刷（360°自由角度）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_INTER_DENTAL_BRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--牙刷-->
+    <mantle.product.Product productId="KM115" productName="U型正畸牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM191" productName="至美正畸牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0325" productName="高密正畸牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM443" productName="凹凸正畸牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM276" productName="单束刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM368" productName="牙周清洁牙刷I型" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM184" productName="牙周清洁牙刷II型" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0363" productName="术后I型牙刷（高密丝）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM313" productName="术后II型牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM382" productName="四排磨尖丝牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0301" productName="牙周活力牙刷（高密丝）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM535 " productName=" 儿童牙刷（0-6岁高密丝）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM436" productName="儿童牙刷（6-12岁磨尖丝）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--备长炭牙刷-->
+    <mantle.product.Product productId="KM412" productName="雅黑净化牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_LONG_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM429" productName="雅黑酷炫牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_LONG_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM405" productName="雅黑情侣牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_LONG_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM399" productName="雅黑相伴牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_LONG_TOOTHBRUSH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--牙签/牙线签-->
+    <mantle.product.Product productId="KM078" productName="20枚牙线签" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_PICK" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM061" productName="50枚牙线签" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_PICK" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0417" productName="便携牙线签--白色,独立包装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_PICK" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0424" productName="便携牙线签--竹炭,独立包装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_PICK" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0431" productName="便携牙线签--白色,独立包装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_PICK" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0448" productName="便携牙线签--竹炭,独立包装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_PICK" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM245" productName="爽牙签" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" originGeoId="CHN"  chargeShipping="Y" primaryProductCategoryId="KM_TOOTH_PICK" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--漱口水-->
+    <mantle.product.Product productId="KM051" productName="绿茶漱口水" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_MOUTH_WASH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM396" productName="金银花漱口水" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_MOUTH_WASH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM402" productName="蓝莓漱口水" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_MOUTH_WASH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0563" productName="氯己定含漱液(新品上市)" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_MOUTH_WASH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM464" productName="绿茶漱口水（90毫升）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_MOUTH_WASH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM457" productName="金银花漱口水（90毫升）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_MOUTH_WASH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM471" productName="蓝莓漱口水（90毫升）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_MOUTH_WASH" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--牙膏-->
+    <mantle.product.Product productId="KM0103" productName="儿童牙膏" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHPASTE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM605" productName="丁硼牙膏" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHPASTE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0110" productName="Sensiv牙膏" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHPASTE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0141" productName="术后修复牙膏" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHPASTE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0134" productName="全效修复牙膏" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHPASTE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0172" productName="术后修复牙膏（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHPASTE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0165" productName="全效修复牙膏（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTHPASTE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--护牙素-->
+    <mantle.product.Product productId="KM121" productName="牙龈修复护牙素" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM138" productName="脱敏修复护牙素" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0127" productName="正畸修复护牙素" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM145" productName="宝宝安全护牙素(0-6岁)" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0343" productName="儿童专用护牙素(6-12岁)" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0367 " productName="孕产妇护牙素" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM152" productName="牙龈修复护牙素（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM169" productName="脱敏修复护牙素（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0158" productName="正畸修复护牙素（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM176" productName="宝宝安全护牙素（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM350" productName="儿童专用护牙素（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM374" productName="孕产妇护牙素（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_MOUSE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--小电器-->
+    <mantle.product.Product productId="KM759" productName="3D回转电动牙刷（新品上市）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_ELECTRONIC_ACCESSORIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1018" productName="便携水牙线 " productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_ELECTRONIC_ACCESSORIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1049" productName="便携水牙线替换头" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_ELECTRONIC_ACCESSORIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1056" productName="家庭装水牙线 " productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_ELECTRONIC_ACCESSORIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1063" productName="家庭装水牙线替换头" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_ELECTRONIC_ACCESSORIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--清洁片-->
+    <mantle.product.Product productId="KM047" productName="正畸保持器清洁片" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_CLEANING_PLATE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM030" productName="义齿清洁片（桶装）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_CLEANING_PLATE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM030" productName="义齿清洁片( 盒装)" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_CLEANING_PLATE" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--刮舌板-->
+    <mantle.product.Product productId="KM283" productName="舌苔刮刮净" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TONGUE_SCRAPER" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--牙盒-->
+    <mantle.product.Product productId="KM0097" productName="快乐牙盒" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BOX" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0080" productName="有孔保持器盒" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BOX" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0073" productName="无孔保持器盒" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BOX" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--其他-->
+    <mantle.product.Product productId="KM504" productName="婴儿指套牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_OTHERS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM528" productName="婴儿牙齿咀嚼棒" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_OTHERS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM511" productName="婴儿护理套装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_OTHERS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1001" productName="正畸蜡（简装品）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_OTHERS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1001" productName="正畸蜡（卡装）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_OTHERS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM785" productName="滋润保湿湿巾" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_OTHERS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--护牙素小套装-->
+    <mantle.product.Product productId="KM0035" productName="牙龈修复护理套装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_SMALL_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0066" productName="脱敏修复护理套装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_SMALL_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0042" productName="正畸专用护理套装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_SMALL_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0059" productName="宝宝安全护理套装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_SMALL_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM610" productName="儿童专用护理套装（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_SMALL_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM627" productName="孕产妇专用护理套装（小）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_SMALL_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1025" productName="术后护理套装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_SMALL_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1032" productName="口腔护理套装" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_SMALL_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--护牙素大套装-->
+    <mantle.product.Product productId="KM740" productName="牙龈修复护理套装（大）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BIG_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM757" productName="脱敏修复护理套装（大）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BIG_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM733" productName="正畸护理套装（大）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BIG_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM702" productName="宝宝安全护理套装（大）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BIG_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM719" productName="儿童专用护理套装（大）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BIG_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM726" productName="孕产妇专用护理套装（大）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BIG_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM764" productName="术后护理套装（大）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BIG_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM771" productName="口腔护理套装（大）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_TOOTH_BIG_SUIT" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--精品礼盒系列-->
+    <mantle.product.Product productId="KM1094" productName="儿童护牙礼盒" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_GIFT_BOXES_SERIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1087" productName="正畸护理礼盒" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_GIFT_BOXES_SERIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1117" productName="脱敏护理礼盒" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_GIFT_BOXES_SERIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM1100" productName="牙龈护理礼盒" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_GIFT_BOXES_SERIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="KM0170" productName="护牙礼盒（家庭装）" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_GIFT_BOXES_SERIES" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+    <!--进口产品（新品）-->
+    <mantle.product.Product productId="DG2335" productName="Protefix齿固佳义齿清洁片" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="DEU"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="DG2137" productName="Protefix齿固佳义齿稳固剂" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="DEU"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="DG2212" productName="Protefix齿固佳上下颚垫片" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="DEU"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="CY101A" productName="单轮儿童护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="CY301A" productName="蒲公英儿童护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="AL101A" productName="单轮便携正畸护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+    <mantle.product.Product productId="AY301A" productName="蒲公英牙周护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
+
+
+</entity-facade-xml>

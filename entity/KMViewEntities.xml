@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.0.xsd">
+
+    <view-entity entity-name="ProductSearchView" package="cn.com.kissimee">
+        <member-entity entity-alias="PROD" entity-name="mantle.product.Product"/>
+        <member-entity entity-alias="PC" entity-name="mantle.product.category.ProductCategory" join-from-alias="PROD" join-optional="true">
+            <key-map field-name="primaryProductCategoryId" related="productCategoryId"/>
+        </member-entity>
+        <member-entity entity-alias="PI" entity-name="mantle.product.ProductIdentification" join-from-alias="PROD" join-optional="true">
+            <key-map field-name="productId"/>
+        </member-entity>
+        <member-entity entity-alias="GEO" entity-name="moqui.basic.Geo" join-from-alias="PROD" join-optional="true">
+            <key-map field-name="originGeoId" related="geoId"/>
+        </member-entity>
+        <alias-all entity-alias="PC">
+            <exclude field="pseudoId"/>
+        </alias-all>
+        <alias-all entity-alias="PROD"/>
+        <alias-all entity-alias="PI"/>
+
+        <alias name="geoName" entity-alias="GEO"/>
+    </view-entity>
+</entities>

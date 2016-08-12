@@ -1,0 +1,9 @@
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
+        default-menu-title="销售管理" default-menu-index="30">
+
+    <widgets>
+        <label text="sales order"/>
+    </widgets>
+</screen>

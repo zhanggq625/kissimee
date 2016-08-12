@@ -1,0 +1,26 @@
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"  default-menu-title="产品" default-menu-index="1">
+    <parameter name="productId" required="true"/>
+    <transition name="updateProduct">
+        <actions>
+            <service-call name="update#mantle.product.Product" in-map="context"/>
+            <message>更新成功</message>
+        </actions>
+        <default-response url="."/>
+    </transition>
+    <actions>
+        <entity-find-one entity-name="mantle.product.Product" value-field="product"/>
+    </actions>
+
+    <widgets>
+
+        <form-single name="EditProductForm" map="product" transition="updateProduct">
+            <field name="productId"><default-field><hidden/></default-field></field>
+            <field name="pseudoId"><default-field title="ID"><text-line size="15"/></default-field></field>
+            <field name="productName"><default-field title="Name"><text-line size="50"/></default-field></field>
+
+            <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+        </form-single>
+    </widgets>
+</screen>
