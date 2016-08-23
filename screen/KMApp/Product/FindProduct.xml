@@ -85,11 +85,20 @@
             <field name="dimension">
                 <header-field title="包装"/>
                 <default-field>
-                    <section-iterate name="uom" list="dimensionList" entry="dimension">
+                    <section name="dimension">
+                        <actions>
+                            <script><![CDATA[
+                                def dimensionValues = []
+                                dimensionList.each{dimension->
+                                    dimensionValues.add(dimension.value)
+                                }
+                                valueString = dimensionValues.join("*")
+                            ]]></script>
+                        </actions>
                         <widgets>
-                            <label text="${dimension.value}*"/>
+                            <label text="${valueString}" />
                         </widgets>
-                    </section-iterate>
+                    </section>
                 </default-field>
             </field>
 
