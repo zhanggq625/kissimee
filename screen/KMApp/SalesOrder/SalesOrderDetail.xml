@@ -5,6 +5,17 @@
 
     <parameter name="orderId" required="true"/>
 
+    <transition name="placeOrder"><service-call name="mantle.order.OrderServices.place#Order"/>
+        <default-response url="."/></transition>
+    <transition name="approveOrder"><service-call name="mantle.order.OrderServices.approve#Order"/>
+        <default-response url="."/></transition>
+    <transition name="sendOrder"><service-call name="mantle.order.OrderServices.update#OrderStatus" in-map="[orderId:orderId, statusId:'OrderSent']"/>
+        <default-response url="."/></transition>
+    <transition name="completeOrderPart"><service-call name="mantle.order.OrderServices.complete#OrderPart"/>
+        <default-response url="."/></transition>
+    <transition name="cancelOrder"><service-call name="mantle.order.OrderServices.cancel#Order"/>
+        <default-response url="."/></transition>
+
     <transition name="addProductItem"><service-call name="mantle.order.OrderServices.add#OrderProductQuantity"/>
         <default-response url="."/></transition>
     <transition name="createItem"><service-call name="mantle.order.OrderServices.create#OrderItem"/>
@@ -18,13 +29,31 @@
 
     <transition-include name="getProductList" location="component://SimpleScreens/template/product/ProductTransitions.xml"/>
 
+    <transition name="PrintOrder.pdf">
+        <default-response url="${ec.web.getWebappRootUrl(false, null)}/fop/apps/PopcAdmin/Order/PrintOrder" url-type="plain">
+            <parameter name="renderMode" value="xsl-fo"/><parameter name="pageNoLimit" value="true"/>
+            <parameter name="orderId"/><parameter name="filename" value="Order-${orderId}.pdf"/>
+        </default-response>
+    </transition>
+
     <actions>
         <service-call name="mantle.order.OrderServices.get#OrderDisplayInfo" in-map="[orderId:orderId]" out-map="context"/>
         <set field="orderPartInfo" from="orderPartInfoList[0]"/>
     </actions>
 
     <widgets>
-        <label text="订单 #${orderId}, 创建于 ${ec.l10n.format(orderHeader.placedDate ?: orderHeader.entryDate, 'yyyy年M月d日')}" type="h2"/>
+        <label text="订单 #${orderId}, 创建于 ${ec.l10n.format(orderHeader.placedDate ?: orderHeader.entryDate, 'yyyy年M月d日 HH:mm')}" type="h2"/>
+
+        <link url="placeOrder" text="下定订单" link-type="hidden-form" condition="orderHeader.statusId == 'OrderOpen'"/>
+        <link url="approveOrder" text="批准订单" link-type="hidden-form"
+              condition="orderHeader.statusId == 'OrderPlaced' &amp;&amp; ec.user.hasPermission('ORDER_APPROVE')"/>
+        <link url="sendOrder" text="发送订单" link-type="hidden-form"
+              condition="orderHeader.statusId == 'OrderApproved'"/>
+        <link url="cancelOrder" text="取消订单" link-type="hidden-form"
+              condition="orderHeader.statusId in ['OrderPlaced', 'OrderApproved']"/>
+
+        <link url="PrintOrder.pdf" text="PDF订单"/>
+
         <container>
             <label text="客户: " type="strong"/>
             <label text="${orderPartInfo.customerDetail.organizationName?:''}${orderPartInfo.customerDetail.firstName?:''} ${orderPartInfo.customerDetail.lastName?:''} [${orderPartInfo.customerDetail.pseudoId}]"/>
