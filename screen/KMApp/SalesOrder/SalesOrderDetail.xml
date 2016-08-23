@@ -44,7 +44,7 @@
     <widgets>
         <label text="订单 #${orderId}, 创建于 ${ec.l10n.format(orderHeader.placedDate ?: orderHeader.entryDate, 'yyyy年M月d日 HH:mm')}" type="h2"/>
 
-        <link url="placeOrder" text="下定订单" link-type="hidden-form" condition="orderHeader.statusId == 'OrderOpen'"/>
+        <link url="placeOrder" text="下定订单" link-type="hidden-form" condition="orderHeader.statusId == 'OrderOpen' &amp;&amp; orderPartInfo.partOrderItemList "/>
         <link url="approveOrder" text="批准订单" link-type="hidden-form"
               condition="orderHeader.statusId == 'OrderPlaced' &amp;&amp; ec.user.hasPermission('ORDER_APPROVE')"/>
         <link url="sendOrder" text="发送订单" link-type="hidden-form"
