@@ -27,7 +27,7 @@
     <transition name="deleteItem"><service-call name="mantle.order.OrderServices.delete#OrderItem"/>
         <default-response url="."/></transition>
 
-    <transition-include name="getProductList" location="component://SimpleScreens/template/product/ProductTransitions.xml"/>
+    <!--<transition-include name="getProductList" location="component://SimpleScreens/template/product/ProductTransitions.xml"/>-->
 
     <transition name="PrintOrder.pdf">
         <default-response url="${ec.web.getWebappRootUrl(false, null)}/fop/apps/PopcAdmin/Order/PrintOrder" url-type="plain">
@@ -75,9 +75,18 @@
                     <field name="orderId"><default-field><hidden/></default-field></field>
                     <field name="orderPartSeqId" entry-name="orderPartInfo.orderPart.orderPartSeqId"><default-field><hidden/></default-field></field>
 
-                    <field name="productId"><default-field title="Product">
-                        <text-line ac-transition="getProductList" ac-min-length="2" size="50"/>
-                    </default-field></field>
+                    <field name="productId">
+                        <default-field title="Product">
+                        <!--<text-line ac-transition="getProductList" ac-min-length="2" size="50"/>-->
+                            <drop-down>
+                                <entity-options key="${productId}" text="${productName}-[${productId}]">
+                                    <entity-find entity-name="mantle.product.Product" list="productList">
+                                        <select-field field-name="productId,productName"/>
+                                    </entity-find>
+                                </entity-options>
+                            </drop-down>
+                        </default-field>
+                    </field>
                     <field name="itemTypeEnumId"><default-field>
                         <hidden default-value="ItemInventory"/>
                     </default-field></field>
