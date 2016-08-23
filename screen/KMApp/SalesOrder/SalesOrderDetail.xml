@@ -29,10 +29,16 @@
             <label text="客户: " type="strong"/>
             <label text="${orderPartInfo.customerDetail.organizationName?:''}${orderPartInfo.customerDetail.firstName?:''} ${orderPartInfo.customerDetail.lastName?:''} [${orderPartInfo.customerDetail.pseudoId}]"/>
         </container>
-        <container>
-            <label text="发货仓库: " type="strong"/>
-            <label text="${orderPartInfo.facility.facilityName} [${orderPartInfo.facility.pseudoId}]"/>
-        </container>
+        <section name="facility">
+            <condition><expression>orderPartInfo.facility</expression></condition>
+            <widgets>
+                <container>
+                    <label text="发货仓库: " type="strong"/>
+                    <label text="${orderPartInfo.facility.facilityName} [${orderPartInfo.facility.pseudoId}]"/>
+                </container>
+            </widgets>
+        </section>
+
 
         <section name="AddItemsSection" condition="orderPartInfo.partEditable"><widgets>
             <container-dialog id="AddProductItemContainer" button-text="添加产品">
@@ -95,7 +101,7 @@
             </row-actions>
             <field name="orderId"><default-field><hidden/></default-field></field>
 
-            <field name="orderItemSeqId"><default-field title="Item"><display/></default-field></field>
+            <field name="orderItemSeqId"><default-field title="序号"><display/></default-field></field>
 
             <field name="productId">
                 <default-field title="Product">
@@ -106,21 +112,20 @@
             <field name="orderPartSeqId"><default-field><hidden/></default-field></field>
 
             <field name="itemDescription">
-                <conditional-field condition="orderPartInfo.partEditable" title="Description"><text-line size="40"/></conditional-field>
-                <default-field title="Description"><display/></default-field></field>
-            <field name="comments"><conditional-field condition="orderPartInfo.partEditable"><text-line size="40"/></conditional-field>
-                <default-field><display/></default-field></field>
-            <field name="quantity"><conditional-field condition="orderPartInfo.partEditable"><text-line size="5"/></conditional-field>
-                <default-field><display/></default-field></field>
+                <default-field title="Description"><text-line size="40"/></default-field>
+            </field>
+            <!--<field name="comments"><default-field title="备注"><text-line size="40"/></default-field></field>-->
+            <field name="unitAmount"><default-field title="单价"><text-line size="8" format="#0.00"/></default-field></field>
+            <field name="quantity"><default-field title="数量"><text-line size="5"/></default-field></field>
 
-            <field name="itemTotal" entry-name="orderItemTotalOut.itemTotal"><default-field>
-                <display currency-unit-field="orderHeader.currencyUomId"/></default-field></field>
+            <field name="itemTotal" entry-name="orderItemTotalOut.itemTotal">
+                <default-field title="小计">
+                    <display currency-unit-field="orderHeader.currencyUomId"/>
+                </default-field>
+            </field>
 
-            <field name="submitButton"><conditional-field condition="orderPartInfo.partEditable" title="Update"><submit/></conditional-field>
-                <default-field/></field>
-            <field name="deleteLink"><conditional-field condition="orderPartInfo.partEditable" title="">
-                <link url="deleteItem" text="Delete"/></conditional-field>
-                <default-field/></field>
+            <field name="submitButton"><default-field><submit text="更新"/></default-field></field>
+            <field name="deleteLink"><default-field title=""><link url="deleteItem" text="Delete"/></default-field></field>
 
         </form-list>
     </widgets>

@@ -6,6 +6,7 @@
         <mantle.party.Organization organizationName="岂止美公司"/>
         <mantle.party.PartyRole roleTypeId="OrgInternal"/>
     </mantle.party.Party>
+    <mantle.ledger.config.PartyAcctgPreference baseCurrencyUomId="CNY" organizationPartyId="ORG_KISSIMEE"/>
 
     <mantle.facility.Facility facilityId="KM_ZHUOZHOU_WH" facilityTypeEnumId="FcTpWarehouse"
                               ownerPartyId="ORG_KISSIMEE" facilityName="涿州仓库"/>
