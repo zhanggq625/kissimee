@@ -14,6 +14,12 @@
     <widgets>
         <form-list name="ProductsForm" list="productList" skip-form="true">
 
+            <row-actions>
+                <entity-find entity-name="mantle.product.ProductDimensionAndType" list="dimensionList">
+                    <econdition field-name="productId"/>
+                </entity-find>
+            </row-actions>
+
             <field name="productId">
                 <header-field title="产品编号" show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><link url="editProduct" text="${productId}" link-type="anchor"/></default-field>
@@ -79,7 +85,11 @@
             <field name="dimension">
                 <header-field title="包装"/>
                 <default-field>
-                    <display/>
+                    <section-iterate name="uom" list="dimensionList" entry="dimension">
+                        <widgets>
+                            <label text="${dimension.value}*"/>
+                        </widgets>
+                    </section-iterate>
                 </default-field>
             </field>
 
