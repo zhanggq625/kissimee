@@ -1,0 +1,41 @@
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
+        default-menu-title="发货单" default-menu-index="20">
+    <transition name="shipmentDetail"><default-response url="//PopcAdmin/Shipment/ShipmentDetail"/></transition>
+
+    <actions>
+
+        <entity-find entity-name="mantle.shipment.ShipmentFindView" list="shipmentList">
+            <search-form-inputs default-order-by="-estimatedReadyDate,-estimatedShipDate,-shipmentId">
+                <default-parameters statusId="ShipInput,ShipScheduled,ShipPicked" statusId_op="in"
+                        entryDate_poffset="0" entryDate_period="Month"/></search-form-inputs>
+            <econdition field-name="shipmentTypeEnumId" operator="in" from="shipmentTypeSet" ignore="!shipmentTypeSet"/>
+            <select-field field-name="shipmentId,shipmentTypeEnumId,shipWorkEffortId"/>
+            <select-field field-name="originFacilityName,destinationFacilityName"/>
+            <select-field field-name="fromPartyId,toPartyId,statusId,entryDate,estimatedReadyDate"/>
+        </entity-find>
+    </actions>
+
+    <widgets>
+        <form-list name="ShipmentList" list="shipmentList" skip-form="true">
+            <field name="shipmentId">
+                <header-field title="运单号" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
+                <default-field><link url="shipmentDetail" text="${shipmentId}" link-type="anchor"/></default-field>
+            </field>
+            <field name="statusId">
+                <default-field title="状态"><display-entity entity-name="moqui.basic.StatusItem"/></default-field>
+            </field>
+            <field name="originFacilityName">
+                <default-field title="发货仓库"><display/></default-field>
+            </field>
+            <field name="toPartyId">
+                <default-field title="收货人"><display-entity entity-name="mantle.party.PartyDetail" text="${organizationName?:''}${firstName?:''} ${lastName?:''} [${pseudoId}]"/></default-field>
+            </field>
+            <field name="entryDate"><header-field show-order-by="true"><date-period/></header-field>
+                <default-field title="创建日期"><display/></default-field></field>
+            <field name="findButton"><header-field title="Find"><submit/></header-field>
+                <default-field><link url="shipmentDetail" text="查看"/></default-field></field>
+        </form-list>
+    </widgets>
+</screen>

@@ -1,0 +1,87 @@
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
+        default-menu-title="待发订单" default-menu-index="10">
+
+    <transition name="shipOrderPart"><service-call name="mantle.shipment.ShipmentServices.create#OrderPartShipment"/>
+        <default-response url="."/></transition>
+    <transition name="shipmentDetail"><default-response url="//PopcAdmin/Shipment/ShipmentDetail"/></transition>
+
+    <actions>
+        <entity-find entity-name="mantle.order.OrderHeaderPartFacilityStatus" list="orderList">
+            <search-form-inputs default-order-by="-entryDate,-orderId,orderPartSeqId" >
+                <default-parameters statusId="OrderApproved"/>
+            </search-form-inputs>
+            <econdition field-name="vendorRoleTypeId" ignore-if-empty="true"/>
+            <econdition field-name="customerRoleTypeId" ignore-if-empty="true"/>
+            <econdition field-name="vendorPartyId" value="ORG_KISSIMEE"/>
+            <select-field field-name="orderId,orderPartSeqId,partTotal,grandTotal"/>
+            <select-field field-name="entryDate,placedDate,shipBeforeDate"/>
+            <select-field field-name="vendorPartyId,customerPartyId"/>
+            <select-field field-name="statusId,statusDescription"/>
+            <select-field field-name="facilityId,facilityName,pseudoId"/>
+        </entity-find>
+
+    </actions>
+
+    <widgets>
+
+        <form-list name="OrderHistoryList" list="orderList">
+            <row-actions>
+                <actions>
+                    <entity-find entity-name="mantle.shipment.ShipmentItemSource" list="shipmentIdList" distinct="true">
+                        <select-field field-name="shipmentId"/>
+                        <econdition field-name="orderId"/>
+                    </entity-find>
+                </actions>
+            </row-actions>
+            <field name="orderId">
+                <header-field title="订单编号" show-order-by="true"><text-find size="8" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+
+            <field name="entryDate">
+                <header-field title="创建时间" show-order-by="true"><display/></header-field>
+                <default-field><display format="yyyy年M月d日 HH:mm"/></default-field>
+            </field>
+
+            <field name="placedDate">
+                <header-field title="下定日期" show-order-by="true"><date-period/></header-field>
+                <default-field><display format="yyyy年M月d日  HH:mm"/></default-field>
+            </field>
+
+            <field name="statusId">
+                <default-field title="状态"><display-entity entity-name="moqui.basic.StatusItem" text="${description}"/></default-field>
+            </field>
+
+            <field name="customerPartyId">
+                <header-field title="客户"><display/></header-field>
+                <default-field><display-entity entity-name="mantle.party.PartyDetail"
+                                               text="${organizationName?:''}${firstName?:''} ${lastName?:''} [${pseudoId}]"/></default-field>
+            </field>
+
+            <field name="partTotal">
+                <header-field show-order-by="true" title="金额"/>
+                <default-field><display currency-unit-field="currencyUomId"/></default-field>
+            </field>
+
+            <field name="submitButton">
+                <header-field title="发货"/>
+                <conditional-field condition="shipmentIdList">
+                    <section-iterate name="ShipmentLinks" list="shipmentIdList" entry="shipment"><widgets>
+                        <link url="shipmentDetail" text="发货单 #${shipment.shipmentId}" link-type="anchor-button">
+                            <parameter name="shipmentId" from="shipment.shipmentId"/>
+                        </link>
+                    </widgets></section-iterate>
+                </conditional-field>
+                <default-field>
+                    <link url="shipOrderPart" text="创建发货单" link-type="hidden-form">
+                        <parameter name="orderId"/>
+                        <parameter name="orderPartSeqId"/>
+                    </link>
+                </default-field>
+            </field>
+        </form-list>
+
+    </widgets>
+</screen>

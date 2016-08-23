@@ -3,7 +3,9 @@
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
         default-menu-title="仓库管理" default-menu-index="50">
 
+    <subscreens default-item="OrdersToBeShip"/>
+
     <widgets>
-        <label text="inventory"/>
+        <subscreens-panel id="FacilityPanel" type="tab"/>
     </widgets>
 </screen>
