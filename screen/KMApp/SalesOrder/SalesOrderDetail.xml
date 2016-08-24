@@ -27,6 +27,21 @@
     <transition name="deleteItem"><service-call name="mantle.order.OrderServices.delete#OrderItem"/>
         <default-response url="."/></transition>
 
+    <transition name="getPrice">
+        <actions>
+
+            <!--service-call name="mantle.product.PriceServices.get#ProductPrice" out-map="priceMap"
+            in-map="[productId:productId, quantity:quantity, priceUomId:'CNY', productStoreId:'KM_RETAIL_STORE', customerPartyId:customerPartyId,
+            vendorPartyId:'ORG_KISSIMEE', priceTypeEnumId:'PptCurrent', pricePurposeEnumId:'PppPurchase']"/-->
+            <entity-find entity-name="mantle.product.ProductPrice" list="productPriceList">
+                <econdition field-name="productId"/>
+                <econdition field-name="customerPartyId" ignore-if-empty="true"/>
+            </entity-find>
+            <script>ec.web.sendJsonResponse(productPriceList[0])</script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
+
     <!--<transition-include name="getProductList" location="component://SimpleScreens/template/product/ProductTransitions.xml"/>-->
 
     <transition name="PrintOrder.pdf">
@@ -89,11 +104,35 @@
                         </default-field>
                     </field>
                     <field name="itemTypeEnumId"><default-field><hidden default-value="ItemInventory"/></default-field></field>
-                    <field name="quantity"><default-field title="数量"><text-line size="8"/></default-field></field>
+                    <field name="quantity"><default-field title="数量"><text-line size="8" default-value="1"/></default-field></field>
                     <field name="unitAmount"><default-field title="单价"><text-line size="10"/></default-field></field>
 
                     <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
                 </form-single>
+
+                <render-mode>
+                    <text type="html">
+                        <![CDATA[
+                            <script>
+                            $('#AddProductItemForm_productId').change(function() {
+                             console.log("=========change===============")
+                                $.ajax({
+                                    url: "${sri.screenUrlInstance.url}/getPrice",
+                                    type: "POST",
+                                    dataType: "json",
+                                    data: { productId: $(this).val(),
+                                            //customerPartyId:${orderPartInfo.customerDetail.partyId},
+                                            moquiSessionToken:"${ec.web.sessionToken}" },
+                                    success: function(data) {
+                                        console.log(data)
+                                        $('#AddProductItemForm_unitAmount').val(data.price)
+                                    }
+                                });
+                            });
+                            </script>
+                        ]]>
+                    </text>
+                </render-mode>
             </container-dialog>
             <container-dialog id="AddOtherItemContainer" button-text="添加其他">
                 <form-single name="AddOtherItemForm" transition="createItem">
