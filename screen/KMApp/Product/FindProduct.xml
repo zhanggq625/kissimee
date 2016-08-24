@@ -2,8 +2,26 @@
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd" default-menu-include="false" default-menu-title="产品查询">
 
-
+    <transition name="createProduct">
+        <actions>
+            <service-call name="create#mantle.product.Product" in-map="context"/>
+            <service-call name="create#mantle.product.ProductIdentification" in-map="context"/>
+            <message>新建成功</message>
+        </actions>
+        <default-response url="../EditProduct"/>
+    </transition>
     <transition name="editProduct"><default-response url="../EditProduct"/></transition>
+
+    <transition name="deleteProduct">
+        <parameter name="productId" required="true"/>
+        <parameter name="productIdTypeEnumId" required="true"/>
+        <actions>
+            <service-call name="delete#mantle.product.ProductIdentification" in-map="context"/>
+            <service-call name="delete#mantle.product.Product" in-map="context"/>
+            <message>删除成功</message>
+        </actions>
+        <default-response url="."/>
+    </transition>
 
     <actions>
         <!--<set field="pageSize" from="200"/>-->
@@ -12,6 +30,40 @@
     </actions>
 
     <widgets>
+        <container-dialog id="NewProductDialog" button-text="创建新产品">
+            <form-single name="NewProductForm" transition="createProduct">
+                <field name="productId"><default-field title="编号">
+                    <text-line/>
+                </default-field></field>
+                <field name="productName"><default-field title="名称"><text-line/></default-field></field>
+                <field name="primaryProductCategoryId">
+                    <default-field title="类别">
+                        <drop-down>
+                            <option key="" text="全部"/>
+                            <entity-options key="${productCategoryId}" text="${categoryName}">
+                                <entity-find entity-name="mantle.product.category.ProductCategory">
+                                    <econdition field-name="productCategoryId" operator="like" value="KM%"/>
+                                    <order-by field-name="categoryName"/>
+                                </entity-find>
+                            </entity-options>
+                        </drop-down>
+                    </default-field>
+                </field>
+                <field name="productIdTypeEnumId">
+                    <default-field title="条码类别">
+                        <hidden default-value="PidtEan"/>
+                    </default-field>
+                </field>
+                <field name="idValue">
+                    <default-field title="条码">
+                        <text-line/>
+                    </default-field>
+                </field>
+                
+                <field name="submitButton"><default-field title="创建"><submit/></default-field></field>
+            </form-single>
+        </container-dialog>
+
         <form-list name="ProductsForm" list="productList" skip-form="true">
 
             <row-actions>
@@ -24,7 +76,6 @@
                 <header-field title="产品编号" show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><link url="editProduct" text="${productId}" link-type="anchor"/></default-field>
             </field>
-
             <field name="primaryProductCategoryId">
                 <header-field title="类别" show-order-by="case-insensitive">
                     <drop-down>
@@ -41,18 +92,16 @@
             </field>
 
             <field name="productName">
-                <header-field title="Name" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
+                <header-field title="名称" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
-
 
             <field name="idValue">
-                <header-field title="条码" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
+                <header-field title="条码" show-order-by="case-insensitive"><text-find size="20" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
 
-
-            <field name="guige">
+            <field name="guide">
                 <header-field title="规格"/>
                 <default-field>
                     <display/>
@@ -86,26 +135,29 @@
                 <header-field title="包装"/>
                 <default-field>
                     <section name="dimension">
-                        <actions>
-                            <script><![CDATA[
+                    <actions>
+                        <script><![CDATA[
                                 def dimensionValues = []
                                 dimensionList.each{dimension->
                                     dimensionValues.add(Math.round(dimension.value*100)/100)
                                 }
                                 valueString = dimensionValues.join("*")
                             ]]></script>
-                        </actions>
-                        <widgets>
-                            <label text="${valueString}" />
-                        </widgets>
+                    </actions>
+                    <widgets>
+                        <label text="${valueString}" />
+                    </widgets>
                     </section>
                 </default-field>
             </field>
 
-            <field name="submitButton">
-                <header-field title="Find"><submit/></header-field>
-                <default-field><display text=" "/></default-field>
+            <field name="delete">
+                <header-field title="查找"><submit/></header-field>
+                <default-field title="删除">
+                    <link confirmation="确定删除 ${productName} 吗?" url="deleteProduct" text="删除"/>
+                </default-field>
             </field>
+
         </form-list>
     </widgets>
 </screen>

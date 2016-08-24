@@ -4,6 +4,9 @@
 
     <extend-entity entity-name="Product" package="mantle.product">
         <field name="primaryProductCategoryId" type="id"/>
+        <field name="guide" type="text-short"/>
+        <field name="uom" type="text-short"/>
+        <!--<field name="dimension" type="text-short"/>-->
     </extend-entity>
 
     <extend-entity entity-name="Geo" package="moqui.basic">
