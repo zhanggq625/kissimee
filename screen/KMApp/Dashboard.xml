@@ -1,6 +1,41 @@
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
             default-menu-title="主菜单" default-menu-index="10">
     <widgets>
-        <label text="dashboard"/>
+        <container-row>
+            <row-col md="2">
+                <container-box>
+                    <box-header><label text="应收金额，笔数" type="h5"/></box-header>
+                    <box-body></box-body>
+                </container-box>
+            </row-col>
+            <row-col md="2">
+                <container-box>
+                    <box-header> <label text="应付金额，笔数"/></box-header>
+                    <box-body></box-body>
+                </container-box>
+            </row-col>
+        </container-row>
+        <container-row>
+            <row-col md="2">
+                <container-box>
+                    <box-header> <label text="今日订单金额，笔数"/></box-header>
+                    <box-body></box-body>
+                </container-box>
+                <container-box>
+                    <box-header> <label text="过往7日订单金额，笔数"/></box-header>
+                    <box-body></box-body>
+                </container-box>
+                <container-box>
+                    <box-header> <label text="过往30日订单金额，笔数"/></box-header>
+                    <box-body></box-body>
+                </container-box>
+                <container-box>
+                    <box-header> <label text="本年订单金额，笔数"/></box-header>
+                    <box-body></box-body>
+                </container-box>
+            </row-col>
+        </container-row>
+
+
     </widgets>
 </screen>
