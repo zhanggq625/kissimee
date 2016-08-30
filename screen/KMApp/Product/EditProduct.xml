@@ -27,12 +27,13 @@
 
     <transition name="updateProduct">
         <actions>
-            <service-call name="update#mantle.product.Product" in-map="context" />
-            <!--<service-call name="update#mantle.product.ProductIdentification" in-map="[productId: productId,productIdTypeEnumId:'PidtEan',idValue:idValue]" out-map="context"/>-->
-            <service-call name="update#mantle.product.ProductIdentification" in-map="context"/>
-            <service-call name="update#mantle.product.ProductDimension"/>
+            <service-call name="ProductServices.update#Product" in-map="context"/>
             <message>更新成功</message>
         </actions>
+        <default-response url="."/>
+    </transition>
+
+    <transition name="updatePrice">
         <default-response url="."/>
     </transition>
 
@@ -65,138 +66,175 @@
 
     <widgets>
 
-        <form-single name="EditProductForm" map="productVar" transition="updateProduct">
-            <field name="productId">
-                <default-field>
-                    <hidden/>
-                </default-field>
-            </field>
-            <field name="pseudoId">
-                <default-field title="编号">
-                    <text-line size="20"/>
-                </default-field>
-            </field>
+        <container-row>
+            <row-col md="6">
+                <form-single name="EditProductForm" map="productVar" transition="updateProduct">
+                    <field name="productId">
+                        <default-field>
+                            <hidden/>
+                        </default-field>
+                    </field>
+                    <field name="pseudoId">
+                        <default-field title="编号">
+                            <text-line size="20"/>
+                        </default-field>
+                    </field>
 
-            <field name="productName">
-                <default-field title="名称">
-                    <text-line size="20"/>
-                </default-field>
-            </field>
-            <field name="primaryProductCategoryId">
-                <default-field title="类别">
-                    <drop-down size="20">
-                        <entity-options key="${productCategoryId}" text="${categoryName}">
-                            <entity-find entity-name="mantle.product.category.ProductCategory">
-                                <econdition field-name="productCategoryId" operator="like" value="KM%"/>
-                            </entity-find>
-                        </entity-options>
-                    </drop-down>
-                </default-field>
-            </field>
+                    <field name="productName">
+                        <default-field title="名称">
+                            <text-line size="20"/>
+                        </default-field>
+                    </field>
+                    <field name="primaryProductCategoryId">
+                        <default-field title="类别">
+                            <drop-down size="20">
+                                <entity-options key="${productCategoryId}" text="${categoryName}">
+                                    <entity-find entity-name="mantle.product.category.ProductCategory">
+                                        <econdition field-name="productCategoryId" operator="like" value="KM%"/>
+                                    </entity-find>
+                                </entity-options>
+                            </drop-down>
+                        </default-field>
+                    </field>
 
 
-            <field name="productTypeEnumId">
-                <default-field title="类型">
-                    <hidden/>
-                   <!-- <widget-template-include
-                            location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="ProductType"/>
-                    </widget-template-include>-->
-                </default-field>
-            </field>
-            <!--<field name="amountFixed">
-                <default-field title="数量">
-                    <text-line size="10" format="0.######"/>
-                </default-field>
-            </field>-->
-            <!--<field name="amountUomId">
-                <default-field title="数量单位">
-                    <drop-down allow-empty="true">
-                        <entity-options key="${uomId}" text="${description} [${uomId}]">
-                            <entity-find entity-name="moqui.basic.Uom">
-                                <econdition field-name="uomTypeEnumId" operator="in"
-                                            value="UT_VOLUME_DRY_MEAS,UT_WEIGHT_MEASURE"/>
-                                <order-by field-name="description"/>
-                            </entity-find>
-                        </entity-options>
-                    </drop-down>
-                </default-field>
-            </field>-->
+                    <field name="productTypeEnumId">
+                        <default-field title="类型">
+                            <hidden/>
+                            <!-- <widget-template-include
+                                     location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                 <set field="enumTypeId" value="ProductType"/>
+                             </widget-template-include>-->
+                        </default-field>
+                    </field>
+                    <!--<field name="amountFixed">
+                        <default-field title="数量">
+                            <text-line size="10" format="0.######"/>
+                        </default-field>
+                    </field>-->
+                    <!--<field name="amountUomId">
+                        <default-field title="数量单位">
+                            <drop-down allow-empty="true">
+                                <entity-options key="${uomId}" text="${description} [${uomId}]">
+                                    <entity-find entity-name="moqui.basic.Uom">
+                                        <econdition field-name="uomTypeEnumId" operator="in"
+                                                    value="UT_VOLUME_DRY_MEAS,UT_WEIGHT_MEASURE"/>
+                                        <order-by field-name="description"/>
+                                    </entity-find>
+                                </entity-options>
+                            </drop-down>
+                        </default-field>
+                    </field>-->
 
-            <field name="idValue">
-                <default-field title="条码">
-                    <text-line size="20"/>
-                </default-field>
-            </field>
+                    <field name="idValue">
+                        <default-field title="条码">
+                            <text-line size="20"/>
+                        </default-field>
+                    </field>
 
-            <field name="productIdTypeEnumId">
-                <default-field title="条码类型">
-                    <hidden/>
-                </default-field>
-            </field>
+                    <field name="productIdTypeEnumId">
+                        <default-field title="条码类型">
+                            <hidden/>
+                        </default-field>
+                    </field>
 
-            <field name="guide">
-                <default-field title="规格">
-                    <text-line size="20"/>
-                </default-field>
-            </field>
+                    <field name="guide">
+                        <default-field title="规格">
+                            <text-line size="20"/>
+                        </default-field>
+                    </field>
 
-            <field name="originGeoId">
-                <default-field title="产地">
-                    <drop-down allow-empty="false" size="20">
-                        <entity-options key="${geoId}" text="${geoName}">
-                            <entity-find entity-name="moqui.basic.Geo">
-                                <econdition field-name="geoId" operator="in" value="CHN,JPN,DEU"/>
-                            </entity-find>
-                        </entity-options>
-                    </drop-down>
-                </default-field>
-            </field>
-            <field name="uom">
-                <default-field title="单位">
-                    <text-line size="20"/>
-                </default-field>
-            </field>
+                    <field name="originGeoId">
+                        <default-field title="产地">
+                            <drop-down allow-empty="false" size="20">
+                                <entity-options key="${geoId}" text="${geoName}">
+                                    <entity-find entity-name="moqui.basic.Geo">
+                                        <econdition field-name="geoId" operator="in" value="CHN,JPN,DEU"/>
+                                    </entity-find>
+                                </entity-options>
+                            </drop-down>
+                        </default-field>
+                    </field>
+                    <field name="uom">
+                        <default-field title="单位">
+                            <text-line size="20"/>
+                        </default-field>
+                    </field>
 
-            <field name="depth">
-                <default-field title="深">
-                    <text-line size="2" default-value="${depth?:''}"/>
-                </default-field>
-            </field>
+                    <field name="depth">
+                        <default-field title="深">
+                            <text-line size="2" default-value="${depth?:''}"/>
+                        </default-field>
+                    </field>
 
-            <field name="height">
-                <default-field title="高">
-                    <text-line size="2" default-value="${height?:''}"/>
-                </default-field>
-            </field>
+                    <field name="height">
+                        <default-field title="高">
+                            <text-line size="2" default-value="${height?:''}"/>
+                        </default-field>
+                    </field>
 
-            <field name="width">
-                <default-field title="宽">
-                    <text-line size="2" default-value="${width?:''}"/>
-                </default-field>
-            </field>
+                    <field name="width">
+                        <default-field title="宽">
+                            <text-line size="2" default-value="${width?:''}"/>
+                        </default-field>
+                    </field>
 
-            <field name="description">
-                <default-field title="描述">
-                    <text-area cols="58" rows="8"/>
-                </default-field>
-            </field>
-            <field name="submitButton">
-                <default-field title="更新">
-                    <submit/>
-                </default-field>
-            </field>
+                    <field name="description">
+                        <default-field title="描述">
+                            <text-area cols="58" rows="8"/>
+                        </default-field>
+                    </field>
+                    <field name="submitButton">
+                        <default-field title="更新">
+                            <submit/>
+                        </default-field>
+                    </field>
 
-            <field-layout>
-                <fields-not-referenced/>
-                    <field-row-big title="包装">
-                        <field-ref name="depth"/>
-                        <field-ref name="width"/>
-                        <field-ref name="height"/>
-                    </field-row-big>
-                <field-ref name="description"/><field-ref name="submitButton"/>
-            </field-layout>
-        </form-single>
+                    <field-layout>
+                        <fields-not-referenced/>
+                        <field-row-big title="包装">
+                            <field-ref name="depth"/>
+                            <field-ref name="width"/>
+                            <field-ref name="height"/>
+                        </field-row-big>
+                        <field-ref name="description"/><field-ref name="submitButton"/>
+                    </field-layout>
+                </form-single>
+            </row-col>
+            <row-col md="6">
+                <form-single name="PriceForm" transition="updatePrice">
+                    <field name="productId">
+                        <default-field>
+                            <hidden/>
+                        </default-field>
+                    </field>
+                    <field name="listPrice">
+                        <default-field title="零售价">
+                            <text-line/>
+                        </default-field>
+                    </field>
+
+                    <field name="cPrice">
+                        <default-field title="C级价格">
+                            <text-line/>
+                        </default-field>
+                    </field>
+
+                    <field name="specialPrice">
+                        <default-field title="特殊价格">
+                            <text-line/>
+                        </default-field>
+                    </field>
+
+                    <field name="submitButton">
+                        <default-field title="更新">
+                            <submit/>
+                        </default-field>
+                    </field>
+                </form-single>
+            </row-col>
+        </container-row>
+
 
     </widgets>
 </screen>

@@ -1,0 +1,56 @@
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.0.xsd">
+
+    <service verb="update" noun="Product" type="inline">
+        <in-parameters>
+            <auto-parameters entity-name="Product"/>
+            <auto-parameters entity-name="ProductIdentification"/>
+            <parameter name="productId" required="true"/>
+            <parameter name="height" type="BigDecimal"/>
+            <parameter name="width" type="BigDecimal"/>
+            <parameter name="depth" type="BigDecimal"/>
+        </in-parameters>
+        <actions>
+            <service-call name="update#mantle.product.Product" in-map="context" />
+
+            <entity-find entity-name="mantle.product.ProductIdentification" list="idList">
+                <econdition-object field="[productId:productId, productIdTypeEnumId:'PidtEan']"/>
+            </entity-find>
+            <if condition="idList">
+                <service-call name="update#mantle.product.ProductIdentification"
+                              in-map="[productId: productId,productIdTypeEnumId:'PidtEan',idValue:idValue]" out-map="context"/>
+                <else>
+                    <service-call name="create#mantle.product.ProductIdentification" in-map="[productId: productId,productIdTypeEnumId:'PidtEan',idValue:idValue]"/>
+                </else>
+            </if>
+            <service-call name="ProductServices.createOrUpdateDimension" in-map="[productId:productId, dimensionTypeId:'Height', value:height]"/>
+            <service-call name="ProductServices.createOrUpdateDimension" in-map="[productId: productId,dimensionTypeId:'Width', value:width]"/>
+            <service-call name="ProductServices.createOrUpdateDimension" in-map="[productId: productId,dimensionTypeId:'Depth', value:depth]"/>
+
+        </actions>
+    </service>
+
+    <service verb="createOrUpdateDimension">
+        <in-parameters>
+            <parameter name="productId" required="true"/>
+            <parameter name="dimensionTypeId" required="true"/>
+            <parameter name="value" />
+        </in-parameters>
+        <actions>
+            <entity-find entity-name="mantle.product.ProductDimension" list="dimensionList">
+                <econdition field-name="productId"/>
+                <econdition field-name="dimensionTypeId"/>
+                <econdition field-name="valueUomId" value="LEN_cm"/>
+            </entity-find>
+
+            <if condition="dimensionList">
+                <service-call name="update#mantle.product.ProductDimension" in-map="[productId: productId,dimensionTypeId:dimensionTypeId,valueUomId:'LEN_cm',value:value]"/>
+                <else>
+                    <service-call name="create#mantle.product.ProductDimension" in-map="[productId: productId,dimensionTypeId:dimensionTypeId, valueUomId:'LEN_cm',value:value]"/>
+                </else>
+            </if>
+        </actions>
+
+    </service>
+
+</services>
