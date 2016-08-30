@@ -128,7 +128,9 @@
                         <script><![CDATA[
                                 def dimensionValues = []
                                 dimensionList.each{dimension->
-                                    dimensionValues.add(Math.round(dimension.value*100)/100)
+                                    if(dimension.value) {
+                                        dimensionValues.add(Math.round(dimension.value*100)/100)
+                                    }
                                 }
                                 valueString = dimensionValues.join("*")
                             ]]></script>
