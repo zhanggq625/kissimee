@@ -138,7 +138,7 @@
                         </default-field>
                     </field>
 
-                    <field name="guide">
+                    <field name="feature">
                         <default-field title="规格">
                             <text-line size="20"/>
                         </default-field>

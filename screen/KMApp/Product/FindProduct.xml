@@ -90,7 +90,7 @@
                 <default-field><display/></default-field>
             </field>
 
-            <field name="guide">
+            <field name="feature">
                 <header-field title="规格"/>
                 <default-field>
                     <display/>
