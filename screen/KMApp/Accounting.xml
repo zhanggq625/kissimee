@@ -1,0 +1,11 @@
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
+        default-menu-title="财务管理" default-menu-index="10">
+
+    <subscreens default-item="Receivable"/>
+
+    <widgets>
+        <subscreens-panel id="AccountingPanel" type="tab"/>
+    </widgets>
+</screen>
