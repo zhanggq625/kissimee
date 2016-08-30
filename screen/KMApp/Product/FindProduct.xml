@@ -12,17 +12,6 @@
     </transition>
     <transition name="editProduct"><default-response url="../EditProduct"/></transition>
 
-    <transition name="deleteProduct">
-        <parameter name="productId" required="true"/>
-        <parameter name="productIdTypeEnumId" required="true"/>
-        <actions>
-            <service-call name="delete#mantle.product.ProductIdentification" in-map="context"/>
-            <service-call name="delete#mantle.product.Product" in-map="context"/>
-            <message>删除成功</message>
-        </actions>
-        <default-response url="."/>
-    </transition>
-
     <actions>
         <!--<set field="pageSize" from="200"/>-->
         <entity-find entity-name="cn.com.kissimee.ProductSearchView" list="productList">
@@ -148,13 +137,6 @@
                         <label text="${valueString}" />
                     </widgets>
                     </section>
-                </default-field>
-            </field>
-
-            <field name="delete">
-                <header-field title="查找"><submit/></header-field>
-                <default-field title="删除">
-                    <link confirmation="确定删除 ${productName} 吗?" url="deleteProduct" text="删除"/>
                 </default-field>
             </field>
 
