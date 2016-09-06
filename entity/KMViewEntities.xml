@@ -22,4 +22,63 @@
         <alias name="geoName" entity-alias="GEO"/>
         <alias name="geoId" entity-alias="GEO"/>
     </view-entity>
+    <view-entity entity-name="FindPartyView" package="mantle.party" >
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="ORG" entity-name="Organization" join-from-alias="PTY" join-optional="true">
+            <key-map field-name="partyId"/></member-entity>
+        <member-entity entity-alias="PER" entity-name="Person" join-from-alias="PTY" join-optional="true">
+            <key-map field-name="partyId"/></member-entity>
+        <member-entity entity-alias="PTRL" entity-name="PartyRole" join-from-alias="PTY" join-optional="true">
+            <key-map field-name="partyId"/></member-entity>
+        <member-entity entity-alias="TNPCM" entity-name="PartyContactMech" join-from-alias="PTY">
+            <key-map field-name="partyId"/>
+        </member-entity>
+        <member-entity entity-alias="GEO1" entity-name="moqui.basic.Geo" join-from-alias="PTY" join-optional="true">
+            <key-map field-name="addressGeoId" related="geoId"/>
+        </member-entity>
+
+        <member-entity entity-alias="GEO2" entity-name="moqui.basic.Geo" join-from-alias="PTY" join-optional="true">
+            <key-map field-name="cityGeoId" related="geoId"/>
+        </member-entity>
+        <alias-all entity-alias="PTY"/>
+        <alias-all entity-alias="PTRL"/>
+        <alias-all entity-alias="ORG"/>
+        <alias-all entity-alias="PER"/>
+        <alias-all entity-alias="GEO1"/>
+        <alias-all entity-alias="GEO2"/>
+    </view-entity>
+    <view-entity entity-name="PartyContactMechPostalAddress" package="mantle.party.contact">
+        <member-entity entity-alias="PCM" entity-name="mantle.party.contact.PartyContactMech"/>
+        <member-entity entity-alias="CM" entity-name="mantle.party.contact.ContactMech" join-from-alias="PCM">
+            <key-map field-name="contactMechId"/></member-entity>
+        <member-entity entity-alias="PA" entity-name="mantle.party.contact.PostalAddress" join-from-alias="PCM">
+            <key-map field-name="contactMechId"/></member-entity>
+        <!-- <member-entity entity-alias="GEO" entity-name="moqui.basic.Geo" join-from-alias="PA" join-optional="true">
+             <key-map field-name="stateProvinceGeoId" related="geoId"></key-map>
+         </member-entity>-->
+        <alias-all entity-alias="PCM"/>
+        <alias-all entity-alias="CM"/>
+        <alias-all entity-alias="PA"/>
+
+    </view-entity>
+
+
+    <view-entity entity-name="PartyContactMechInfo" package="mantle.party.contact">
+        <member-entity entity-alias="PCM" entity-name="mantle.party.contact.PartyContactMech"/>
+        <member-entity entity-alias="CM" entity-name="mantle.party.contact.ContactMech" join-from-alias="PCM">
+            <key-map field-name="contactMechId"/></member-entity>
+        <alias-all entity-alias="PCM"/>
+        <alias-all entity-alias="CM"/>
+    </view-entity>
+
+    <view-entity entity-name="PartyContactMechTelecomNumber" package="mantle.party.contact">
+        <member-entity entity-alias="PCM" entity-name="mantle.party.contact.PartyContactMech"/>
+        <member-entity entity-alias="CM" entity-name="mantle.party.contact.ContactMech" join-from-alias="PCM">
+            <key-map field-name="contactMechId"/></member-entity>
+        <member-entity entity-alias="TN" entity-name="mantle.party.contact.TelecomNumber" join-from-alias="PCM">
+            <key-map field-name="contactMechId"/></member-entity>
+        <alias-all entity-alias="PCM"/>
+        <alias-all entity-alias="CM"/>
+        <alias-all entity-alias="TN"/>
+    </view-entity>
 </entities>
