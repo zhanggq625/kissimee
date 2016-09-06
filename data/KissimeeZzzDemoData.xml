@@ -254,10 +254,12 @@
     <mantle.product.Product productId="CY101A" productName="单轮儿童护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
     <mantle.product.Product productId="CY301A" productName="蒲公英儿童护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
     <mantle.product.Product productId="AL101A" productName="单轮便携正畸护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
-    <mantle.product.Product productId="AY301A" productName="蒲公英牙周护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
 
-
-
+    <mantle.product.Product productId="AY301A" productName="蒲公英牙周护理牙刷" productTypeEnumId="PtAsset" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description="">
+        <mantle.product.asset.Asset assetId="A_AY301A" facilityId="KM_ZHUOZHOU_WH" statusId="AstAvailable" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" ownerPartyId="ORG_KISSIMEE" hasQuantity="Y" quantityOnHandTotal="0" availableToPromiseTotal="0">
+            <mantle.product.asset.AssetDetail assetDetailId="A_AY301A" quantityOnHandDiff="25" availableToPromiseDiff="25"/>
+        </mantle.product.asset.Asset>
+    </mantle.product.Product>
 
     <!-- ========== DEMO CUSTOMER DATA ========== -->
     <mantle.party.Party partyTypeEnumId="PtyOrganization">

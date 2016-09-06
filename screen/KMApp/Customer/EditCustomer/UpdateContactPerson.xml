@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
+        default-menu-include="false" standalone="true">
+    <parameter name="partyId" required="true"/>
+    <parameter name="contactMechId"/>
+    <parameter name="contactMechPurposeId"/>
+    <parameter name="infoString"/>
+    <transition name="updateContactPerson">
+        <actions>
+            <service-call name="update#mantle.party.contact.TelecomNumber"
+                          in-map="[contactMechId:contactMechId,contactNumber:contactNumber,askForName:askForName]"
+                          out-map="context"/>
+            <service-call name="update#mantle.party.contact.ContactMech"
+                          in-map="[contactMechId:contactMechId,contactMechTypeEnumId:'CmtTelecomNumber',infoString:infoString]"
+                          out-map="context"/>
+        </actions>
+        <default-response url=".."></default-response>
+    </transition>
+    <actions>
+        <entity-find-one entity-name="mantle.party.contact.TelecomNumber" value-field="telephone">
+            <field-map field-name="contactMechId"></field-map>
+        </entity-find-one>
+        <entity-find-one entity-name="mantle.party.contact.ContactMech" value-field="con">
+            <field-map field-name="contactMechId"/>
+        </entity-find-one>
+    </actions>
+    <widgets>
+        <form-single name="UpdateContactPerson" transition="updateContactPerson" map="telephone">
+            <field name="partyId"><default-field><hidden/></default-field></field>
+            <field name="contactMechId">
+                <default-field><hidden/></default-field>
+            </field>
+            <field name="askForName">
+                <default-field title="姓名">
+                    <text-line/>
+                </default-field>
+            </field>
+            <field name="infoString">
+                <default-field title="邮箱">
+                    <text-line default-value="${con.infoString?:''}"/>
+                </default-field>
+            </field>
+            <field name="contactNumber">
+                <default-field title="电话"><text-line/></default-field>
+            </field>
+            <field name="submitButton">
+                <default-field title="更新">
+                    <submit/>
+                </default-field>
+            </field>
+        </form-single>
+    </widgets>
+</screen>
