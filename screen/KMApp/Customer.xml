@@ -3,7 +3,8 @@
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
         default-menu-title="客户管理" default-menu-index="50">
 
+    <subscreens default-item="FindCustomer"/>
     <widgets>
-        <label text="Customer"/>
+        <subscreens-panel id="CustomerPanel" type="tab"/>
     </widgets>
 </screen>
