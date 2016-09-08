@@ -251,5 +251,10 @@
             <field name="deleteLink"><default-field title=""><link url="deleteItem" text="Delete"/></default-field></field>
 
         </form-list>
+
+        <container style="pull-right">
+            <label text="合计 ${ec.l10n.formatCurrency(orderPartInfo.orderPart.partTotal ?: 0, orderHeader?.currencyUomId)}" type="h3"/>
+        </container>
+
     </widgets>
 </screen>
