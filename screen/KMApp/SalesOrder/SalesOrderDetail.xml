@@ -103,7 +103,9 @@
             <widgets>
                 <section name="Return" condition="returnItemList">
                     <widgets>
-                        <link url="returnDetail?returnId=${returnItemList[0].returnId}" text="退货单[${returnItemList[0].returnId}]"/>
+                        <link url="returnDetail" text="退货单[${returnItemList[0].returnId}]">
+                            <parameter name="returnId" from="returnItemList[0].returnId"/>
+                        </link>
                     </widgets>
                     <fail-widgets>
                         <link url="returnSalesOrder" text="退货" link-type="hidden-form">
