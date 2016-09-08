@@ -18,7 +18,4 @@
                 <service-call name="create#mantle.party.PartyRole" in-map="[partyId:partyId, roleTypeId:roleTypeId]"/></if>
         </actions>
     </service>
-
-
-
 </services>

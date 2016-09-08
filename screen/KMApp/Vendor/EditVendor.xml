@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
+         default-menu-index="11">
+    <parameter name="partyId" required="true"/>
+     <transition name="updateParty">
+         <default-response url="."></default-response>
+     </transition>
+    <actions>
+        <entity-find-one entity-name="mantle.party.FindPartyView" value-field="party"/>
+        <entity-find-one entity-name="mantle.party.contact.PartyContactMechPostalAddress" value-field="address"/>
+    </actions>
+    <widgets>
+        <form-single name="EditOrganizationForm" map="party" transition="updateParty">
+        <field name="partyId">
+            <default-field>
+                <hidden/>
+            </default-field>
+        </field>
+        <field name="pseudoId">
+            <default-field title="客户ID">
+                <hidden/>
+            </default-field>
+        </field>
+
+        <field name="addressMechId">
+            <default-field>
+                <hidden default-value="${partyId}_add"/>
+            </default-field>
+        </field>
+        <field name="organizationName">
+            <default-field title="供应商名称">
+                <text-line size="60"/>
+            </default-field>
+        </field>
+            <field name="addressGeoId">
+                <default-field title="省">
+                    <drop-down>
+                        <entity-options key="${geoId}" text="${geoNameLocal}">
+                            <entity-find entity-name="moqui.basic.Geo" list="geoList">
+                                <econdition field-name="geoTypeEnumId" value="GEOT_PROVINCE"/>
+                                <econdition field-name="geoId" operator="like" value="CHN_%"/>
+                                <!--<order-by field-name="geoId"/>-->
+                            </entity-find>
+                        </entity-options>
+                    </drop-down>
+                </default-field>
+            </field>
+            <field name="cityGeoId" >
+                <default-field title="市" >
+                    <drop-down allow-empty="true" >
+                        <dynamic-options transition="getCityGeo" value-field="geoId"
+                                         label-field="label">
+                            <depends-on field="addressGeoId"/>
+                        </dynamic-options>
+                    </drop-down>
+                </default-field>
+            </field>
+            <field name="address1">
+                <default-field title="地址">
+                    <text-line default-value="${address?.address1?:''}"/>
+                </default-field>
+            </field>
+            <field name="submitButton">
+                <default-field title="编辑">
+                    <submit/>
+                </default-field>
+            </field>
+        </form-single>
+   </widgets>
+</screen>
