@@ -51,9 +51,28 @@
         </default-response>
     </transition>
 
+
+    <transition name="invoiceOrderPart"><service-call name="mantle.account.InvoiceServices.create#EntireOrderPartInvoice"/>
+        <default-response url="."/></transition>
+
+    <transition name="editInvoice"><default-response url="//PopcAdmin/Accounting/EditInvoice"/></transition>
+
+    <transition name="returnSalesOrder">
+        <service-call name="OrderServices.return#WholeOrder"/>
+        <default-response url="."/>
+    </transition>
+
+    <transition name="returnDetail">
+        <default-response url="//km/Return/ReturnDetail"/>
+    </transition>
+
     <actions>
         <service-call name="mantle.order.OrderServices.get#OrderDisplayInfo" in-map="[orderId:orderId]" out-map="context"/>
         <set field="orderPartInfo" from="orderPartInfoList[0]"/>
+
+        <entity-find entity-name="mantle.order.return.ReturnItem" list="returnItemList">
+            <econdition field-name="orderId"/>
+        </entity-find>
     </actions>
 
     <widgets>
@@ -67,7 +86,35 @@
         <link url="cancelOrder" text="取消订单" link-type="hidden-form"
               condition="orderHeader.statusId in ['OrderPlaced', 'OrderApproved']"/>
 
-        <link url="PrintOrder.pdf" text="PDF订单"/>
+        <link url="invoiceOrderPart" text="创建发票" link-type="hidden-form"
+              parameter-map="[orderPartSeqId:orderPartInfo.orderPart.orderPartSeqId]"
+              condition="quantityNotBilledByPart.get(orderPartInfo.orderPart.orderPartSeqId)"/>
+
+        <section-iterate name="InvoiceLinks" list="invoiceIdSet" entry="invoiceId">
+            <widgets>
+                <link url="editInvoice" text="Invoice #${invoiceId}" link-type="anchor-button"/>
+            </widgets>
+        </section-iterate>
+
+        <link url="PrintOrder.pdf" text="PDF订单" condition="orderPartInfo.partOrderItemList"/>
+
+        <!--should be displayed after the invoice created-->
+        <section name="ReturnSection" condition="orderHeader.statusId == 'OrderSent'">
+            <widgets>
+                <section name="Return" condition="returnItemList">
+                    <widgets>
+                        <link url="returnDetail?returnId=${returnItemList[0].returnId}" text="退货单[${returnItemList[0].returnId}]"/>
+                    </widgets>
+                    <fail-widgets>
+                        <link url="returnSalesOrder" text="退货" link-type="hidden-form">
+                            <parameter name="orderId"/>
+                            <parameter name="orderPartSeqId" from="orderPartInfo.orderPart.orderPartSeqId"/>
+                        </link>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+
 
         <container>
             <label text="客户: " type="strong"/>

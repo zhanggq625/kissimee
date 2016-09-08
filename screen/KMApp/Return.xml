@@ -3,7 +3,9 @@
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
         default-menu-title="退换货" default-menu-index="50">
 
+
+    <subscreens default-item="FindReturn"/>
     <widgets>
-        <label text="return"/>
+        <subscreens-panel id="ReturnPanel" type="tab"/>
     </widgets>
 </screen>
