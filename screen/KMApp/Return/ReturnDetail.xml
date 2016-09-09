@@ -1,0 +1,80 @@
+
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd" default-menu-include="false" default-menu-title="退换货明细">
+
+    <parameter name="returnId" required="true"/>
+
+    <actions>
+        <service-call name="mantle.order.ReturnServices.get#ReturnDisplayInfo" in-map="context" out-map="context"/>
+        <entity-find-one entity-name="mantle.party.PartyDetail" value-field="customerDetail">
+            <field-map field-name="partyId" from="returnHeader.customerPartyId"/>
+        </entity-find-one>
+    </actions>
+
+    <widgets>
+
+        <label text="退货单 #${returnId}, 创建于 ${ec.l10n.format(returnHeader.entryDate, 'yyyy年M月d日 HH:mm')}" type="h2"/>
+
+        <container>
+            <label text="客户: " type="strong"/>
+            <label text="${customerDetail.organizationName?:''}${customerDetail.firstName?:''} ${customerDetail.lastName?:''} [${customerDetail.pseudoId}]"/>
+
+        </container>
+        <form-list name="ReturnItemList" list="returnItemList">
+            <field name="returnItemSeqId">
+                <default-field title="编号">
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="productId">
+                <default-field title="产品编号">
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="description">
+                <default-field title="描述">
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="orderId">
+                <default-field title="订单编号">
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="orderItemSeqId">
+                <default-field title="订单明细编号">
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="returnQuantity">
+                <default-field title="退货数量">
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="returnPrice">
+                <default-field title="退货单价">
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="returnReasonEnumId">
+                <default-field title="退货原因">
+                    <display-entity entity-name="moqui.basic.Enumeration" text="${description}"/>
+                </default-field>
+            </field>
+
+            <field name="returnResponseEnumId">
+                <default-field title="退货类型">
+                    <display-entity entity-name="moqui.basic.Enumeration" text="${description}"/>
+                </default-field>
+            </field>
+
+        </form-list>
+    </widgets>
+</screen>

@@ -1,0 +1,27 @@
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.0.xsd">
+
+    <service verb="return" noun="WholeOrder" type="inline">
+        <in-parameters>
+            <parameter name="orderId" required="true"/>
+            <parameter name="orderPartSeqId" required="true"/>
+        </in-parameters>
+        <actions>
+
+            <service-call name="mantle.order.ReturnServices.create#ReturnFromOrder" in-map="context" out-map="context"/>
+
+            <entity-find entity-name="mantle.order.OrderItem" list="orderItemList">
+                <econdition field-name="orderId"/>
+                <!--<econdition field-name="orderPartSeqId"/>-->
+            </entity-find>
+            <iterate list="orderItemList" entry="orderItem">
+                <set field="context.orderItemSeqId" from="orderItem.orderItemSeqId"/>
+                <set field="context.returnQuantity" from="orderItem.quantity"/>
+                <set field="context.returnReasonEnumId" value="RrsnDidNotWant"/>
+                <set field="context.returnResponseEnumId" value="RrspRefund"/>
+                <service-call name="mantle.order.ReturnServices.add#OrderItemToReturn" in-map="context"/>
+            </iterate>
+
+        </actions>
+    </service>
+</services>
