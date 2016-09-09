@@ -3,7 +3,9 @@
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
         default-menu-title="采购管理" default-menu-index="40">
 
+    <subscreens default-item="FindPurchaseOrder"/>
     <widgets>
-        <label text="purchase order"/>
+        <!--<label text="purchase order"/>-->
+        <subscreens-panel id="PurchaseOrderPanel" type="tab"/>
     </widgets>
 </screen>
