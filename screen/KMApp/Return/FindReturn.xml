@@ -7,8 +7,14 @@
         <default-response url="../ReturnDetail"/>
     </transition>
 
-    <actions>
+    <transition name="returnDetail">
+        <default-response url="../ReturnDetail"/>
+    </transition>
 
+    <actions>
+        <entity-find entity-name="mantle.order.return.ReturnHeader" list="returnList">
+
+        </entity-find>
     </actions>
 
     <widgets>
@@ -52,6 +58,37 @@
                 <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
             </form-single>
         </container-dialog>
+
+        <form-list name="ReturnList" list="returnList">
+            <field name="returnId">
+                <header-field show-order-by="true"><text-find size="8" hide-options="true"/></header-field>
+                <default-field title="退货单编号">
+                    <link text="${returnId}" url="returnDetail"/>
+                </default-field>
+            </field>
+
+            <field name="statusId">
+                <header-field title="Status" show-order-by="true">
+                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#statusDropDown">
+                        <set field="statusTypeId" value="ReturnHeader"/>
+                        <set field="allowEmpty" value="true"/>
+                    </widget-template-include>
+                </header-field>
+                <default-field><display-entity entity-name="moqui.basic.StatusItem" text="${description}"/></default-field>
+            </field>
+
+            <field name="customerPartyId">
+                <header-field title="客户"><display/></header-field>
+                <default-field><display-entity entity-name="mantle.party.PartyDetail"
+                                               text="${organizationName?:''}${firstName?:''} ${lastName?:''} [${pseudoId}]"/></default-field>
+            </field>
+
+            <field name="entryDate">
+                <header-field title="创建时间" show-order-by="true"><display/></header-field>
+                <default-field><display format="yyyy年M月d日 HH:mm"/></default-field>
+            </field>
+
+        </form-list>
 
     </widgets>
 </screen>
