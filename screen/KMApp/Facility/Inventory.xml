@@ -13,7 +13,7 @@
         </transition>
 
         <transition name="editProduct">
-            <default-response url="."/>
+            <default-response url="//km/Product/EditProduct"/>
         </transition>
 
         <actions>
@@ -29,7 +29,7 @@
                     <default-field><link url="editProduct" text="${productId}" link-type="anchor"/></default-field>
                 </field>
                 <field name="assetId">
-                    <header-field title="资产编号"><text-find hide-options="true"/></header-field>
+                    <header-field title="资产编号"><text-find size="10" hide-options="true"/></header-field>
                     <default-field><link url="assetDetail" text="${assetId?:''}" link-type="anchor"/></default-field>
                 </field>
                 <field name="productName">
