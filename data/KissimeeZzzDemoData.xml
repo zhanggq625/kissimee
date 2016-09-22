@@ -66,13 +66,13 @@
         <mantle.product.ProductDimension dimensionTypeId="Depth" valueUomId="LEN_cm" value="6"/>
         <mantle.product.ProductDimension dimensionTypeId="Height" valueUomId="LEN_cm" value="18"/>
 
-        <mantle.product.asset.Asset assetTypeEnumId="AstTpInventory" classEnumId="AsClsInventoryFin"
+       <!-- <mantle.product.asset.Asset assetTypeEnumId="AstTpInventory" classEnumId="AsClsInventoryFin"
                                     statusId="AstAvailable" facilityId="KM_ZHUOZHOU_WH" ownerPartyId="ORG_KISSIMEE"
                                     hasQuantity="Y" quantityOnHandTotal="0" availableToPromiseTotal="0"
                                     acquireCost="7.50" acquireCostUomId="CNY" receivedDate="1265184000000">
             <mantle.product.asset.AssetDetail effectiveDate="1265184000000"
                                               quantityOnHandDiff="100" availableToPromiseDiff="100"/>
-        </mantle.product.asset.Asset>
+        </mantle.product.asset.Asset>-->
     </mantle.product.Product>
 
     <mantle.product.Product productId="KM221" productName="50m水蓬松牙线" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_DENTAL_FLOSS" originGeoId="CHN"  chargeShipping="Y" returnable="Y"  description="">
@@ -256,13 +256,13 @@
     <mantle.product.Product productId="AL101A" productName="单轮便携正畸护理牙刷" productTypeEnumId="PtAsset" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description=""></mantle.product.Product>
 
     <mantle.product.Product productId="AY301A" productName="蒲公英牙周护理牙刷" assetTypeEnumId="AstTpInventory" productTypeEnumId="PtAsset" primaryProductCategoryId="KM_NEW_ARRIVAL" originGeoId="JPN"  chargeShipping="Y" returnable="Y"  description="">
-        <mantle.product.asset.Asset facilityId="KM_ZHUOZHOU_WH" statusId="AstAvailable" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" ownerPartyId="ORG_KISSIMEE" hasQuantity="Y" quantityOnHandTotal="0" availableToPromiseTotal="0">
+        <!--<mantle.product.asset.Asset facilityId="KM_ZHUOZHOU_WH" statusId="AstAvailable" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" ownerPartyId="ORG_KISSIMEE" hasQuantity="Y" quantityOnHandTotal="0" availableToPromiseTotal="0">
             <mantle.product.asset.AssetDetail quantityOnHandDiff="25" availableToPromiseDiff="25"/>
         </mantle.product.asset.Asset>
 
         <mantle.product.asset.Asset facilityId="KM_YIZHUANG_WH" statusId="AstAvailable" assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" ownerPartyId="ORG_KISSIMEE" hasQuantity="Y" quantityOnHandTotal="0" availableToPromiseTotal="0">
             <mantle.product.asset.AssetDetail quantityOnHandDiff="25" availableToPromiseDiff="25"/>
-        </mantle.product.asset.Asset>
+        </mantle.product.asset.Asset>-->
     </mantle.product.Product>
 
     <!-- ========== DEMO CUSTOMER DATA ========== -->
