@@ -1,0 +1,68 @@
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
+             default-menu-include="false">
+
+         <parameter name="assetId" required="true"/>
+         <parameter name="facilityId" required="true"/>
+    <transition name="shipmentDetail"><default-response url="//PopcAdmin/Shipment/ShipmentDetail"/></transition>
+    <transition name="orderDetail"><default-response url="//PopcAdmin/Order/OrderDetail"/></transition>
+
+    <actions>
+            <service-call name="mantle.product.AssetServices.get#AssetDisplayInfo" in-map="context" out-map="context"/>
+            <set field="statusChangeTransition" value="updateAsset"/>
+        </actions>
+        <widgets>
+            <container-box>
+                <box-header><label text="入库详单" type="h5"/></box-header>
+                <box-body>
+                    <form-list name="AssetDetailList" list="assetDetailList" skip-form="true">
+                        <row-actions>
+                            <entity-find-one entity-name="mantle.product.receipt.AssetReceipt" value-field="assetReceipt"/>
+                            <entity-find-one entity-name="mantle.product.issuance.AssetIssuance" value-field="assetIssuance"/>
+                            <entity-find-one entity-name="mantle.product.issuance.AssetReservation" value-field="assetReservation"/>
+                            <entity-find-one entity-name="mantle.product.asset.PhysicalInventory" value-field="physicalInventory"/>
+                            <entity-find-one entity-name="moqui.basic.Enumeration" value-field="varianceReasonEnum">
+                                <field-map field-name="enumId" from="varianceReasonEnumId"/></entity-find-one>
+                        </row-actions>
+                        <field name="facilityId">
+                            <default-field title="仓库名称">
+                                <display-entity entity-name="mantle.facility.Facility" text="${facilityName}"/></default-field>
+                        </field>
+                        <field name="effectiveDate"><default-field title="入库日期"><display format="yyyy-MM-dd HH:mm"/></default-field></field>
+                        <field name="quantityOnHandDiff"><default-field title="库存数量"><display/></default-field></field>
+                        <field name="availableToPromiseDiff"><default-field title="可售数量"><display/></default-field></field>
+                        <field name="source">
+                            <conditional-field condition="assetReceipt" >
+                                <label text="Receipt #${assetReceiptId}"/>
+                                <link url="shipmentDetail" text="Shipment #${assetReceipt.shipmentId}"
+                                      parameter-map="[shipmentId:assetReceipt.shipmentId]" link-type="anchor"
+                                      condition="assetReceipt.shipmentId"/>
+                                <link url="orderDetail" text="PO #${assetReceipt.orderId}"
+                                      parameter-map="[orderId:assetReceipt.orderId]" link-type="anchor"
+                                      condition="assetReceipt.orderId"/>
+                            </conditional-field>
+                            <conditional-field condition="assetIssuance">
+                                <label text="Issuance #${assetIssuanceId}"/>
+                                <link url="shipmentDetail" text="Shipment #${assetIssuance.shipmentId}"
+                                      parameter-map="[shipmentId:assetIssuance.shipmentId]" link-type="anchor"
+                                      condition="assetIssuance.shipmentId"/>
+                                <link url="orderDetail" text="SO #${assetIssuance.orderId}"
+                                      parameter-map="[orderId:assetIssuance.orderId]" link-type="anchor"
+                                      condition="assetIssuance.orderId"/>
+                            </conditional-field>
+                            <conditional-field condition="assetReservationId">
+                                <label text="Reservation #${assetReservationId}"/>
+                                <label text="(reservation removed)" condition="!assetReservation"/>
+                                <link url="orderDetail" text="Order #${assetReservation.orderId}" link-type="anchor"
+                                      parameter-map="[orderId:assetReservation.orderId]" condition="assetReservation?.orderId"/>
+                            </conditional-field>
+                            <conditional-field condition="physicalInventory">
+                                <label text="Physical Inventory #${physicalInventoryId} (${varianceReasonEnum?.description})"/>
+                            </conditional-field>
+                            <default-field title="历史入库订单编号"><display text=" " /></default-field>
+                        </field>
+                    </form-list>
+                </box-body>
+            </container-box>
+        </widgets>
+</screen>
