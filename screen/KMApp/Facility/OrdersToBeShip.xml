@@ -10,7 +10,7 @@
     <actions>
         <entity-find entity-name="mantle.order.OrderHeaderPartFacilityStatus" list="orderList">
             <search-form-inputs default-order-by="-entryDate,-orderId,orderPartSeqId" >
-                <default-parameters statusId="OrderApproved"/>
+                <default-parameters statusId="OrderApproved, OrderSent" statusId_op="in"/>
             </search-form-inputs>
             <econdition field-name="vendorRoleTypeId" ignore-if-empty="true"/>
             <econdition field-name="customerRoleTypeId" ignore-if-empty="true"/>
