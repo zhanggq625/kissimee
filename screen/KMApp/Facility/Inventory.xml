@@ -9,7 +9,7 @@
         </transition>
 
         <transition name="assetDetail">
-            <default-response url="."/>
+            <default-response url="../InventoryDetail"/>
         </transition>
 
         <transition name="editProduct">
