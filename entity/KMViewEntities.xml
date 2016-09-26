@@ -22,6 +22,21 @@
         <alias name="geoName" entity-alias="GEO"/>
         <alias name="geoId" entity-alias="GEO"/>
     </view-entity>
+    <view-entity entity-name="InventorySearchView" package="cn.com.kissimee">
+        <member-entity entity-alias="PROD" entity-name="mantle.product.Product"/>
+        <member-entity entity-alias="AST" entity-name="mantle.product.asset.Asset" join-from-alias="PROD" join-optional="true">
+            <key-map field-name="productId"/></member-entity>
+        <member-entity entity-alias="FAC" entity-name="mantle.facility.Facility" join-from-alias="AST" join-optional="true">
+            <key-map field-name="facilityId"/></member-entity>
+        <alias entity-alias="FAC" name="facilityId"/>
+        <alias entity-alias="FAC" name="facilityName"/>
+        <alias entity-alias="PROD" name="productId"/>
+        <alias entity-alias="PROD" name="pseudoId"/>
+        <alias entity-alias="PROD" name="productName"/>
+        <alias entity-alias="AST" name="assetId"/>
+        <alias entity-alias="AST" name="quantityOnHandTotal"/>
+        <alias entity-alias="AST" name="availableToPromiseTotal"/>
+    </view-entity>
     <view-entity entity-name="FindPartyView" package="mantle.party" >
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="ORG" entity-name="Organization" join-from-alias="PTY" join-optional="true">

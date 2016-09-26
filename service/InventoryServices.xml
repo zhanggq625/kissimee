@@ -1,0 +1,35 @@
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.0.xsd">
+
+    <service verb="receive" noun="Inventory" type="inline">
+        <in-parameters>
+            <parameter name="productId" required="true"/>
+            <parameter name="facilityId" required="true"/>
+            <parameter name="quantity" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="assetId" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="Asset" list="assetList">
+                <econdition-object field="[productId:productId, facilityId:facilityId]"/>
+            </entity-find>
+
+            <set field="assetListSize" value="${assetList?.size()}"/>
+
+            <if condition="assetListSize &lt;= 1">
+                <then>
+                    <if condition="assetList">
+                        <set field="context.assetId" from="assetList[0].assetId"/>
+                    </if>
+                    <service-call name="mantle.product.AssetServices.receive#Asset" in-map="context" out-map="context"/>
+                </then>
+
+                <else>
+                    <return error="true" message="数据库数据不正确，此产品有${assetListSize}个库存"/>
+                </else>
+            </if>
+
+        </actions>
+    </service>
+</services>
