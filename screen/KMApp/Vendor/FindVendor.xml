@@ -1,0 +1,81 @@
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd" default-menu-include="false" default-menu-title="供应商查询">
+
+    <transition name="editVendor">
+        <default-response url="../EditVendor"></default-response>
+    </transition>
+    <transition name="createOrganization">
+        <actions>
+            <service-call name="create#mantle.party.Party" in-map="[partyId:partyId, partyTypeEnumId:'PtyOrganization']"
+                          out-map="context"/>
+            <service-call name="create#mantle.party.Organization" in-map="context"/>
+
+            <if condition="roleTypeId">
+                <service-call name="create#mantle.party.PartyRole" in-map="[partyId:partyId, roleTypeId:roleTypeId]"/></if>
+        </actions>
+        <!--<actions>
+            <service-call name="create#mantle.party.Party" out-map="context" in-map="[partyId:partyId,partyTypeEnumId:'PtyOrganization']"/>
+            <service-call name="create#mantle.party.Organization" in-map="context" />
+            <if condition="roleTypeId">
+                <service-call name="create#mantle.party.PartyRole" in-map="[partyId:partyId, roleTypeId:roleTypeId]"/></if>
+        </actions>-->
+        <!--<service-call name="PartyServices.create#Organization"/>-->
+        <default-response url="../EditVendor"/>
+    </transition>
+    <pre-actions><set field="roleTypeId" value="Vendor"/></pre-actions>
+    <actions>
+
+        <entity-find entity-name="mantle.party.FindPartyView" list="partyList">
+            <search-form-inputs/>
+        </entity-find>
+
+    </actions>
+    <widgets>
+        <container-dialog id="createOrganization" button-text="创建供应商">
+            <form-single name="CreateOrganizationCustomer" transition="createOrganization">
+                <field name="roleTypeId"><default-field><hidden/></default-field></field>
+                <field name="organizationName">
+                    <default-field title="供应商名称">
+                        <text-line/>
+                    </default-field>
+                </field>
+                <field name="submitButton">
+                    <default-field title="新建">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+        <form-list name="VendorListForm" list="partyList"  skip-form="true">
+            <field name="partyId">
+                <default-field>
+                    <hidden/>
+                </default-field>
+            </field>
+            <field name="pseudoId">
+                <header-field title="供应商ID" show-order-by="case-insensitive">
+                </header-field>
+                <default-field>
+                    <link url="editVendor" text="${pseudoId}"/>
+                </default-field>
+            </field>
+            <field name="organizationName">
+                <header-field title="供应商名称" show-order-by="case-insensitive">
+                    <text-find size="20" hide-options="true"/>
+                </header-field>
+                <default-field>
+                    <display/>
+                </default-field>
+            </field>
+
+            <field name="submitButton">
+                <header-field title="Find">
+                    <submit/>
+                </header-field>
+                <default-field>
+
+                </default-field>
+            </field>
+        </form-list>
+    </widgets>
+</screen>
