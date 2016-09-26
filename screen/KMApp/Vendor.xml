@@ -4,6 +4,6 @@
         default-menu-title="供应商管理" default-menu-index="50">
     <subscreens default-item="FindVendor"/>
     <widgets>
-        <label text="Supplier"/>
+        <subscreens-panel id="VendorPanel" type="tab"/>
     </widgets>
 </screen>
