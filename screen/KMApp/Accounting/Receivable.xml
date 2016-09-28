@@ -3,7 +3,48 @@
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
         default-menu-title="应收账款" default-menu-index="10">
 
+    <transition name="invoiceDetail">
+        <default-response url="//PopcAdmin/Accounting/Invoice/EditInvoice"/>
+    </transition>
+
+    <transition name="orderDetail">
+        <default-response url="//km/SalesOrder/SalesOrderDetail"/>
+    </transition>
+
+    <actions>
+        <entity-find entity-name="mantle.account.invoice.Invoice" list="unpaidInvoiceList">
+            <econdition field-name="fromPartyId" value="ORG_KISSIMEE"/>
+            <econdition field-name="statusId" operator="in" value="InvoiceFinalized,InvoiceSent,InvoiceReceived,InvoiceApproved"/>
+        </entity-find>
+    </actions>
     <widgets>
-        <label text="应收"/>
+        <form-list name="UnpaidInvoiceListForm" list="unpaidInvoiceList" skip-form="true">
+            <row-actions>
+                <service-call name="mantle.account.InvoiceServices.get#InvoiceDisplayInfo" in-map="[invoiceId:invoiceId]" out-map="InvDisp"/>
+            </row-actions>
+            <field name="invoiceId"><default-field title="发票编号">
+                <link url="invoiceDetail" link-type="anchor-button" text="${invoiceId}"/>
+            </default-field></field>
+            <field name="toPartyId"><default-field title="客户">
+                <display-entity entity-name="mantle.party.PartyDetail" also-hidden="false" key-field-name="partyId"
+                                text="PartyNameTemplate"/>
+            </default-field></field>
+            <field name="description"><default-field><display/></default-field></field>
+            <field name="invoiceDate"><header-field show-order-by="true"/><default-field title="发票日期"><display also-hidden="false"/></default-field></field>
+            <field name="invoiceTotal"><default-field title="总额"><display text="${InvDisp.invoiceTotal}" currency-unit-field="currencyUomId"/></default-field></field>
+            <field name="appliedPaymentsTotal"><default-field title="已收"><display text="${InvDisp.appliedPaymentsTotal}" currency-unit-field="currencyUomId"/></default-field></field>
+            <field name="unpaidTotal"><default-field title="应收"><display text="${InvDisp.unpaidTotal}" currency-unit-field="currencyUomId"/></default-field></field>
+
+            <field name="statusId"><header-field show-order-by="true"/>
+                <default-field title="Status"><display-entity entity-name="moqui.basic.StatusItem" also-hidden="false"/></default-field>
+            </field>
+            <field name="orderIdSet">
+                <default-field title="订单">
+                    <section-iterate name="OrderLinks" list="InvDisp.orderIdSet" entry="orderId"><widgets>
+                        <link url="orderDetail" text="Order #${orderId}" link-type="anchor-button"/>
+                    </widgets></section-iterate>
+                </default-field>
+            </field>
+        </form-list>
     </widgets>
 </screen>

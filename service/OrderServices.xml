@@ -17,6 +17,7 @@
             <iterate list="orderItemList" entry="orderItem">
                 <set field="context.orderItemSeqId" from="orderItem.orderItemSeqId"/>
                 <set field="context.returnQuantity" from="orderItem.quantity"/>
+                <set field="context.returnPrice" from="orderItem.unitAmount"/>
                 <set field="context.returnReasonEnumId" value="RrsnDidNotWant"/>
                 <set field="context.returnResponseEnumId" value="RrspRefund"/>
                 <service-call name="mantle.order.ReturnServices.add#OrderItemToReturn" in-map="context"/>
