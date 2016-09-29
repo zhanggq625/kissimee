@@ -12,6 +12,9 @@
     </transition>
 
     <actions>
+        <service-call name="mantle.order.OrderServices.get#OrderDisplayInfo" in-map="[orderId:orderId]" out-map="context"/>
+        <set field="orderPartInfo" from="orderPartInfoList[0]"/>
+
         <entity-find entity-name="mantle.order.OrderItemDetail" list="orderItem">
             <search-form-inputs default-order-by="-orderItemSeqId"/>
             <econdition field-name="orderId"/>
@@ -20,7 +23,15 @@
     </actions>
 
     <widgets>
-        <form-list name="OrderHistoryList" list="orderItem" multi="true" transition="returnOrder">
+        <label text="订单 #${orderId}" type="h2"/>
+        <container>
+            <label text="日期: " type="strong"/>
+            <label text="${ec.l10n.format(orderHeader.placedDate ?: orderHeader.entryDate, 'yyyy年M月d日 HH:mm')}"/>
+        </container><container>
+            <label text="客户: " type="strong"/>
+            <label text="${orderPartInfo.customerDetail.organizationName?:''}${orderPartInfo.customerDetail.firstName?:''} ${orderPartInfo.customerDetail.lastName?:''} [${orderPartInfo.customerDetail.pseudoId}]"/>
+        </container>
+        <form-list name="OrderHistoryList" list="orderItem" multi="true" transition="returnOrder" paginate="false">
 
             <field name="orderId"><default-field><hidden/></default-field></field>
             <field name="orderPartSeqId"><default-field><hidden/></default-field></field>
