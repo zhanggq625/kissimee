@@ -108,7 +108,7 @@
                         </link>
                     </widgets>
                     <fail-widgets>
-                        <link url="returnSalesOrder" text="退货" link-type="hidden-form">
+                        <link url="returnSalesOrder" text="退货" link-type="hidden-form" confirmation="确定要把个订单退货吗？">
                             <parameter name="orderId"/>
                             <parameter name="orderPartSeqId" from="orderPartInfo.orderPart.orderPartSeqId"/>
                         </link>

@@ -1,17 +1,27 @@
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd" default-menu-include="false">
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd" default-menu-include="false" default-menu-title="创建退货单">
 
     <parameter name="orderId" required="true"/>
     <parameter name="returnId"/>
 
     <transition name="returnOrder">
-        <service-call name="OrderServices.return#OrderItems" in-map="context" out-map="context"/>
+        <actions>
+            <set field="returnHeaderIn" from="new HashMap()"/>
+            <set field="returnHeaderIn.orderId" from="context.orderId_0"/>
+            <set field="returnHeaderIn.orderPartSeqId" from="context.orderPartSeqId_0"/>
+            <service-call name="mantle.order.ReturnServices.create#ReturnFromOrder" in-map="returnHeaderIn" out-map="context"/>
+
+            <service-call name="mantle.order.ReturnServices.add#OrderItemToReturn" in-map="context" multi="true"/>
+        </actions>
         <default-response url="//km/Return/ReturnDetail">
             <parameter name="returnId"/>
         </default-response>
     </transition>
 
     <actions>
+        <service-call name="mantle.order.OrderServices.get#OrderDisplayInfo" in-map="[orderId:orderId]" out-map="context"/>
+        <set field="orderPartInfo" from="orderPartInfoList[0]"/>
+
         <entity-find entity-name="mantle.order.OrderItemDetail" list="orderItem">
             <search-form-inputs default-order-by="-orderItemSeqId"/>
             <econdition field-name="orderId"/>
@@ -20,10 +30,20 @@
     </actions>
 
     <widgets>
-        <form-list name="OrderHistoryList" list="orderItem" multi="true" transition="returnOrder">
+        <link url="../SalesOrderDetail" text="订单 #${orderId}" link-type="anchor" style="h2"><parameter name="orderId"/></link>
+        <container>
+            <label text="日期: " type="strong"/>
+            <label text="${ec.l10n.format(orderHeader.placedDate ?: orderHeader.entryDate, 'yyyy年M月d日 HH:mm')}"/>
+        </container><container>
+            <label text="客户: " type="strong"/>
+            <label text="${orderPartInfo.customerDetail.organizationName?:''}${orderPartInfo.customerDetail.firstName?:''} ${orderPartInfo.customerDetail.lastName?:''} [${orderPartInfo.customerDetail.pseudoId}]"/>
+        </container>
+        <form-list name="OrderHistoryList" list="orderItem" multi="true" transition="returnOrder" paginate="false">
 
             <field name="orderId"><default-field><hidden/></default-field></field>
             <field name="orderPartSeqId"><default-field><hidden/></default-field></field>
+            <field name="returnReasonEnumId"><default-field><hidden default-value="RrsnDidNotWant"/></default-field></field>
+            <field name="returnResponseEnumId"><default-field><hidden default-value="RrspRefund"/></default-field></field>
             <field name="_useRowSubmit"><default-field><hidden default-value="true"/></default-field></field>
             <field name="_rowSubmit"><default-field title=" "><check no-current-selected-key="false"><option key="true" text=" "/></check></default-field></field>
 
@@ -40,8 +60,8 @@
                 <default-field title="单价"><text-line size="8" format="#0.00"/></default-field>
             </field>
 
-            <field name="quantity">
-                <default-field title="数量"><text-line size="5"/></default-field>
+            <field name="returnQuantity">
+                <default-field title="数量"><text-line size="5" default-value="${quantity}"/></default-field>
             </field>
 
             <field name="submitButton">
