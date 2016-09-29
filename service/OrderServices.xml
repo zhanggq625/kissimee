@@ -25,4 +25,31 @@
 
         </actions>
     </service>
+
+    <service verb="return" noun="OrderItems" type="inline">
+        <in-parameters>
+            <auto-parameters entity-name="mantle.order.OrderItem" include="all"/>
+            <parameter name="orderId" required="true"/>
+            <parameter name="orderPartSeqId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="returnId" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="mantle.order.return.ReturnItem" list="returnIdList" >
+                <econdition field-name="orderId"/>
+                <select-field field-name="returnId"/>
+            </entity-find>
+            <if condition="!returnIdList">
+                <service-call name="mantle.order.ReturnServices.create#ReturnFromOrder" in-map="context" out-map="context"/>
+                <else>
+                    <set field="context.returnId" from="returnIdList[0].returnId"/>
+                </else>
+            </if>
+                <set field="context.returnQuantity" from="quantity"/>
+                <set field="context.returnReasonEnumId" value="RrsnDidNotWant"/>
+                <set field="context.returnResponseEnumId" value="RrspRefund"/>
+                <service-call name="mantle.order.ReturnServices.add#OrderItemToReturn" in-map="context"/>
+        </actions>
+    </service>
 </services>
