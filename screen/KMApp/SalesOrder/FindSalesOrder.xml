@@ -7,6 +7,9 @@
         <service-call name="mantle.order.OrderServices.create#Order"/>
         <default-response url="../SalesOrderDetail"/>
     </transition>
+    <transition name="returnSalesOrder">
+        <default-response url="../ReturnSalesOrder"/>
+    </transition>
 
     <actions>
         <entity-find entity-name="mantle.order.OrderHeaderPartFacilityStatus" list="orderList">
@@ -21,6 +24,7 @@
             <select-field field-name="vendorPartyId,customerPartyId"/>
             <select-field field-name="statusId,statusDescription"/>
             <select-field field-name="facilityId,facilityName,pseudoId"/>
+            <select-field field-name="currencyUomId"/>
         </entity-find>
 
         <set field="vendorRole" value="OrgInternal,Supplier,Vendor,VendorBillFrom"/>
@@ -119,7 +123,7 @@
 
             <field name="submitButton">
                 <header-field title="Find"><submit/></header-field>
-                <default-field><link url="orderDetail" text="View"/></default-field>
+                <default-field><link url="returnSalesOrder" text="退货" condition="statusId in ['OrderSent', 'OrderApproved', 'OrderCompleted']" link-type="anchor-button" parameter-map="[orderId:orderId]"/></default-field>
             </field>
         </form-list>
 
