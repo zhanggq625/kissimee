@@ -265,7 +265,8 @@
         </mantle.product.asset.Asset>-->
     </mantle.product.Product>
 
-    <!-- ========== DEMO CUSTOMER DATA ========== -->
+<!--
+    &lt;!&ndash; ========== DEMO CUSTOMER DATA ========== &ndash;&gt;
     <mantle.party.Party partyTypeEnumId="PtyOrganization">
         <mantle.party.Organization organizationName="裕华区要进芳口腔诊所"/>
         <mantle.party.PartyRole roleTypeId="Customer"/>
@@ -331,8 +332,10 @@
         <mantle.party.PartyRole roleTypeId="Customer"/>
     </mantle.party.Party>
 
+-->
 
-    <!-- ========== DEMO VENDOR DATA ========== -->
+<!--
+    &lt;!&ndash; ========== DEMO VENDOR DATA ========== &ndash;&gt;
     <mantle.party.Party partyTypeEnumId="PtyOrganization">
         <mantle.party.Organization organizationName="河北1"/>
         <mantle.party.PartyRole roleTypeId="Vendor"/>
@@ -345,5 +348,6 @@
         <mantle.party.Organization organizationName="河北3"/>
         <mantle.party.PartyRole roleTypeId="Vendor"/>
     </mantle.party.Party>
+-->
 
 </entity-facade-xml>

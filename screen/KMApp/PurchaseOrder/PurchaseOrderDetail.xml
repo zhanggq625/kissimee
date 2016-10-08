@@ -42,6 +42,12 @@
         <default-response type="none"/>
     </transition>
 
+
+    <transition name="invoiceOrderPart"><service-call name="mantle.account.InvoiceServices.create#EntireOrderPartInvoice"/>
+        <default-response url="."/></transition>
+
+    <transition name="editInvoice"><default-response url="//PopcAdmin/Accounting/EditInvoice"/></transition>
+
     <!--<transition-include name="getProductList" location="component://SimpleScreens/template/product/ProductTransitions.xml"/>-->
 
     <transition name="PrintOrder.pdf">
@@ -69,6 +75,15 @@
 
         <link url="PrintOrder.pdf" text="PDF订单"/>
 
+        <link url="invoiceOrderPart" text="创建发票" link-type="hidden-form"
+              parameter-map="[orderPartSeqId:orderPartInfo.orderPart.orderPartSeqId]"
+              condition="quantityNotBilledByPart.get(orderPartInfo.orderPart.orderPartSeqId)"/>
+
+        <section-iterate name="InvoiceLinks" list="invoiceIdSet" entry="invoiceId">
+            <widgets>
+                <link url="editInvoice" text="Invoice #${invoiceId}" link-type="anchor-button"/>
+            </widgets>
+        </section-iterate>
         <container>
             <label text="供应商: " type="strong"/>
             <!--<label text="${orderPartInfo.customerDetail.organizationName?:''}${orderPartInfo.customerDetail.firstName?:''} ${orderPartInfo.customerDetail.lastName?:''} [${orderPartInfo.customerDetail.pseudoId}]"/>-->
