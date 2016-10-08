@@ -331,6 +331,7 @@
         <mantle.party.PartyRole roleTypeId="Customer"/>
     </mantle.party.Party>
 
+
     <!-- ========== DEMO VENDOR DATA ========== -->
     <mantle.party.Party partyTypeEnumId="PtyOrganization">
         <mantle.party.Organization organizationName="河北1"/>
@@ -344,4 +345,5 @@
         <mantle.party.Organization organizationName="河北3"/>
         <mantle.party.PartyRole roleTypeId="Vendor"/>
     </mantle.party.Party>
+
 </entity-facade-xml>

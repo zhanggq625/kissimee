@@ -2,7 +2,6 @@
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.0.xsd"
         default-menu-title="供应商管理" default-menu-index="50">
-    <subscreens default-item="FindVendor"/>
     <widgets>
         <subscreens-panel id="VendorPanel" type="tab"/>
     </widgets>
