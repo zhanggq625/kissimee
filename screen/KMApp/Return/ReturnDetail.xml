@@ -4,6 +4,18 @@
 
     <parameter name="returnId" required="true"/>
 
+    <transition name="requestReturnOrder"><service-call name="mantle.order.ReturnServices.request#Return"/>
+        <default-response url="."/></transition>
+    <transition name="approveReturnOrder"><service-call name="mantle.order.ReturnServices.approve#Return" in-map="[returnId:returnId, statusId:'ReturnRequested']"/>
+        <default-response url="."/></transition>
+
+    <transition name="receiveReturnOrder"><service-call name="mantle.order.ReturnServices.receive#ReturnItem" in-map="[returnId:returnId, statusId:'ReturnReceived', returnItemSeqId:returnItemSeqId]"/>
+        <default-response url="."/></transition>
+    <!--<transition name="completeOrderPart"><service-call name="mantle.order.ReturnServices.complete#OrderPart"/>-->
+        <!--<default-response url="."/></transition>-->
+    <transition name="cancelReturnOrder"><service-call name="mantle.order.ReturnServices.cancel#Return"/>
+        <default-response url="."/></transition>
+
     <actions>
         <service-call name="mantle.order.ReturnServices.get#ReturnDisplayInfo" in-map="context" out-map="context"/>
         <entity-find-one entity-name="mantle.party.PartyDetail" value-field="customerDetail">
@@ -14,6 +26,11 @@
     <widgets>
 
         <label text="退货单 #${returnId}, 创建于 ${ec.l10n.format(returnHeader.entryDate, 'yyyy年M月d日 HH:mm')}" type="h2"/>
+        <link url="requestReturnOrder" text="申请退货" link-type="hidden-form" condition="returnHeader.statusId == 'ReturnCreated'"/>
+              <!--condition="returnHeader.statusId == 'ReturnCreated' &amp;&amp; ec.user.hasPermission('ORDER_APPROVE')"/>-->
+        <link url="approveReturnOrder" text="批准退货" link-type="hidden-form" condition="returnHeader.statusId == 'ReturnRequested'"/>
+        <link url="receiveReturnOrder" text="发送退货" link-type="hidden-form" condition="returnHeader.statusId == 'ReturnApproved'"/>
+        <link url="cancelReturnOrder" text="取消退货" link-type="hidden-form" condition="returnHeader.statusId in ['ReturnRequested', 'ReturnApproved', 'ReturnShipped']"/>
 
         <container>
             <label text="客户: " type="strong"/>
