@@ -1,0 +1,64 @@
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.0.xsd">
+
+    <service verb="find" noun="ReturnableOrderItems">
+        <in-parameters>
+            <parameter name="orderId" required="true"/>
+            <parameter name="lookBackDays" type="Integer" default="30"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderItemInfoList" type="List"><parameter name="orderItemInfo" type="Map">
+                <parameter name="orderId"/>
+                <parameter name="orderItemSeqId"/>
+                <parameter name="itemTypeEnumId"/>
+                <parameter name="productId"/>
+                <parameter name="orderQuantity" type="BigDecimal"/>
+                <parameter name="invoiceQuantity" type="BigDecimal"/>
+                <parameter name="returnedQuantity" type="BigDecimal"/>
+                <parameter name="returnableQuantity" type="BigDecimal"/>
+                <parameter name="returnPrice"/>
+            </parameter></parameter>
+        </out-parameters>
+        <actions>
+            <script>
+                Calendar lookBackCal = ec.user.nowCalendar
+                lookBackCal.add(Calendar.DAY_OF_MONTH, -lookBackDays)
+                lookBackTs = new java.sql.Timestamp(lookBackCal.getTimeInMillis())
+            </script>
+            <!-- Match customerPartyId, vendorPartyId (to OrderPart), include (invoiced items (physical shipped or not); shipped items/quantities), exclude returned -->
+            <entity-find entity-name="cn.com.kissimee.ReturnableOrderItemView" list="returnableItems">
+                <econdition field-name="placedDate" operator="greater-equals" from="lookBackTs"/>
+                <econdition field-name="orderId"/>
+                <select-field field-name="orderId"/><select-field field-name="orderItemSeqId"/>
+                <select-field field-name="orderPartSeqId"/>
+                <select-field field-name="itemTypeEnumId"/><select-field field-name="productId"/>
+                <select-field field-name="quantity"/><select-field field-name="invoiceQuantity"/>
+                <select-field field-name="unitAmount"/>
+                <order-by field-name="orderId"/><order-by field-name="orderItemSeqId"/>
+            </entity-find>
+
+            <!--<log message="==${returnableItems}==" level="info"/>-->
+            <set field="orderItemInfoList" from="[]"/>
+            <iterate list="returnableItems" entry="returnableItem">
+                <entity-find entity-name="mantle.order.return.ReturnItemQuantity" list="riqList">
+                    <econdition field-name="orderId" from="returnableItem.orderId"/>
+                    <econdition field-name="orderItemSeqId" from="returnableItem.orderItemSeqId"/>
+                    <econdition field-name="statusId" operator="not-equals" value="ReturnCancelled"/>
+                    <select-field field-name="returnQuantity"/>
+                </entity-find>
+                <set field="returnedQuantity" from="(riqList ? (riqList[0].returnQuantity ?: 0) : 0) as BigDecimal"/>
+                <set field="returnableQuantity" from="(returnableItem.invoiceQuantity ?: 0) - returnedQuantity"/>
+                <set field="returnPrice" value="${returnableItem.unitAmount}"/>
+
+                <log level="info" message="======${returnableItem.unitAmount}========"/>
+                <if condition="returnableQuantity > 0">
+                    <script>orderItemInfoList.add([orderId:returnableItem.orderId, orderItemSeqId:returnableItem.orderItemSeqId,
+                        itemTypeEnumId:returnableItem.itemTypeEnumId, productId:returnableItem.productId,
+                        orderQuantity:returnableItem.quantity, invoiceQuantity:returnableItem.invoiceQuantity,
+                        returnedQuantity:returnedQuantity, returnableQuantity:returnableQuantity, orderPartSeqId:returnableItem.orderPartSeqId, returnPrice:returnableItem.unitAmount])</script>
+                </if>
+            </iterate>
+            <log message="============${orderItemInfoList.returnPrice}==============" level="info"/>
+        </actions>
+    </service>
+</services>
